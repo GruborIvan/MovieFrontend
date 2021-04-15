@@ -6,14 +6,12 @@ const MovieListComponent = () => {
 
     const allMovies = useSelector(state => state.movies);
 
-    console.log(allMovies)
-
     const allMoviesRendered = allMovies.map((movie) => {
         return <MovieItemComponent key={movie.id} movie={movie} />
     })
 
     return (
-        <div>
+        <div style={{marginLeft: 50, marginTop: 40}}>
             {allMoviesRendered}
         </div>
     );

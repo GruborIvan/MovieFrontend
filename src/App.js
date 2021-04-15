@@ -1,11 +1,16 @@
 import React from 'react'
-import MovieListComponent from './components/MovieListComponent';
+import { BrowserRouter as Router} from "react-router-dom";
+import Routes from './Routes';
+import Header from './components/Header'
 
 const App = () => {
 
     return (
         <div>
-            <MovieListComponent/>
+            <Router>
+                <Header/>
+                <Routes/>
+            </Router>  
         </div>
     );
 };
