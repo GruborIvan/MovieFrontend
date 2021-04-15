@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as yup from 'yup';
+import { LogIn } from '../store/actions';
 
 const validationSheme = yup.object().shape({
     email: yup.string().required('Username is required!'),
@@ -9,9 +11,12 @@ const validationSheme = yup.object().shape({
 
 const LogInComponent = () => {
 
+    const dispatch = useDispatch();
+
     const onFormSubmit = (values,{resetForm}) => {
         resetForm();
-        //console.log(values);
+        const credentials = { username: values.email, password: values.pass }
+        dispatch(LogIn(credentials));
     };
 
     return (
