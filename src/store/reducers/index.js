@@ -1,6 +1,7 @@
-import { GET_MOVIES, RECIEVE_MOVIES,ADD_MOVIE } from '../../constants/action-types'
+import { GET_MOVIES, RECIEVE_MOVIES,ADD_MOVIE, SAVE_TOKEN } from '../../constants/action-types'
 
 const initialState = {
+    token: '',
     movies: [],
 }
 
@@ -16,6 +17,13 @@ function rootReducer(state = initialState, action) {
         case ADD_MOVIE: {
             return { 
                 ...state, movies: [...state.movies,action.payload] 
+            }
+        }
+        case SAVE_TOKEN: {
+            console.log('TOKEN IS: ');
+            console.log(action.json.access);
+            return {
+                ...state, token: action.json.access
             }
         }
         default: {
