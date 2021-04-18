@@ -5,14 +5,14 @@ import Header from './components/Header'
 
 const App = () => {
 
-    return (
-        <div>
-            <Router>
-                <Header/>
-                <Routes/>
-            </Router>  
-        </div>
-    );
+  return (
+    <div>
+      <Router>
+        <Header/>
+        <Routes/>
+      </Router>  
+    </div>
+  );
 };
 
 export default App;
