@@ -6,7 +6,7 @@ const MovieItemComponent = ({movie}) => {
         <Link to={'/movies/' + movie.id}>
         <div className="ui card" onClick={() => console.log(movie.id)}>
             <div className="image">
-                <img src={movie.imageurl} alt="Img failed to load." style={{width: 280, height: 300, paddingLeft: 10}}/>
+                <img src={movie.imageurl} alt="Img failed to load." style={{width: 280, height: 290, paddingLeft: 10, marginTop: 10}}/>
             </div>
             <div className="content">
                 {movie.title}

@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-const Pagination = ({ moviesPerPage, totalMovies, paginate }) => {
+const Pagination = ({ totalMovies, paginate }) => {
 
-    const movieNumbers = [];
-
-    for (let i = 1; i <= Math.ceil(totalMovies / moviesPerPage); i++) {
-        movieNumbers.push(i);
-    }
+    const movieNums = useMemo(() => {
+        let movieNumbers = [];
+        for (let i = 1; i <= Math.ceil(totalMovies / 10); i++) { movieNumbers.push(i) }
+        return movieNumbers;
+    },[totalMovies])
 
     return (
-        <div>
-            <ul style={{overflow: 'hidden'}}>
-                {movieNumbers.map(number => (
-                    <li key={number} style={{float: 'left'}}>
-                        <button className="ui secondary button" type="button" onClick={() => paginate(number)}> {number} </button>
-                    </li>
-                ))}
-            </ul>
+        <div className="ui container segment" style={{width: 400}}>
+        <ul style={{overflow: 'hidden'}}>
+            {movieNums.map(number => (
+                <li key={number} style={{float: 'left'}}>
+                    <button className="ui secondary button" type="button" onClick={() => paginate(number)}> {number} </button>
+                </li>
+            ))}
+        </ul>
         </div>
     );
 

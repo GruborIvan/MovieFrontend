@@ -1,12 +1,29 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { LogOut } from '../store/actions';
 
 const Header = () => {
-    return (<div style={{ backgroundColor: 'blue', height: 50, width: 1800, overflow: 'hidden' }} >  
-        <div style={{ marginLeft: 500, marginTop: 5 }}>
-            <Link to="/movies" className="ui primary button"> All Movies </Link>
-            <Link to="/addmovie" className="ui secondary button"> Add Movie </Link>
-        </div>
+
+    const isLoggedIn = useSelector((state) => state.token);
+    const dispatch = useDispatch();
+
+    const onUserLogOut = () => {
+        localStorage.setItem('token','');
+        localStorage.setItem('refresh','');
+        dispatch(LogOut());
+    };
+
+    return (<div style={{ backgroundColor: 'blue', height: 54, width: 1800, overflow: 'hidden' }} >
+            <div style={{textAlign: 'center', marginTop: 10}}>
+                <Link to="/movies" className="ui inverted blue button"> All Movies </Link>
+                <Link to="/addmovie" className="ui inverted blue button"> Add Movie </Link>
+
+                { isLoggedIn === ''
+                    ? <Link to="" className="ui inverted green button" style={{marginLeft: 380}}> Log In </Link>
+                    : <Link to="" onClick={onUserLogOut} className="ui inverted red button" style={{marginLeft: 380}}> Log Out </Link>
+                }
+            </div>
     </div>);
 };
 
