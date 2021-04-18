@@ -1,48 +1,44 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import * as yup from "yup";
-import { LogIn } from "../store/actions";
-import { Link, useHistory } from "react-router-dom";
+// import * as yup from "yup";
 
-const validationSheme = yup.object().shape({
-  email: yup.string().required("Username is required!"),
-  pass: yup.string().required("Password is required!"),
-});
-
-const LogInComponent = () => {
-  const dispatch = useDispatch();
-  const { push } = useHistory();
-
-  const onFormSubmit = (values, { resetForm }) => {
-    resetForm();
-    localStorage.setItem("token", "");
-    const credentials = { username: values.email, password: values.pass };
-    dispatch(LogIn({ credentials, loginCallback: () => push("/movies") }));
-  };
-
+const RegisterComponent = () => {
   return (
     <div
       className="ui very padded raised container segment"
-      style={{ width: 650, height: 550, overflow: "hidden" }}>
+      style={{ width: 650, height: 550, overflow: "hidden" }}
+    >
       <h3 style={{ marginLeft: 200, float: "left", marginBottom: 60 }}>
         {" "}
-        Log in form:{" "}
+        Register form:{" "}
       </h3>
-      <Link to="/register" className="ui inverted green button" style={{ float: "left", marginLeft: 100 }}>
-        <i class="user icon"></i>
-        Register user
-      </Link>
       <br />
       <br />
       <hr />
-      <Formik
-        onSubmit={onFormSubmit}
-        validationSchema={validationSheme}
-        initialValues={{ email: "", pass: "" }}>
+
+      <Formik initialValues={{ ime: "", email: "", pass: "" }}>
         <Form className="ui form" style={{ marginLeft: 140 }}>
           <div className="field" style={{ overflow: "hidden" }}>
-            <label htmlFor="email"> Title: </label>
+            <label htmlFor="ime"> Ime i prezime: </label>
+            <div style={{ float: "left" }}>
+              <Field
+                type="text"
+                name="ime"
+                placeholder="Ime i prezime.."
+                style={{ width: 260 }}
+              />
+            </div>
+
+            <div style={{ float: "left", marginLeft: 15 }}>
+              <ErrorMessage name="ime">
+                {(msg) => <div style={{ color: "red" }}> {msg} </div>}
+              </ErrorMessage>
+            </div>
+          </div>
+
+          <div className="field" style={{ overflow: "hidden" }}>
+            <label htmlFor="email"> E-mail address: </label>
             <div style={{ float: "left" }}>
               <Field
                 type="text"
@@ -79,16 +75,20 @@ const LogInComponent = () => {
           <br />
           <button
             type="submit"
-            className="ui inverted blue button"
-            style={{ marginLeft: 80 }}
+            className="ui primary button"
+            style={{ marginLeft: 10 }}
           >
             {" "}
-            Log In{" "}
+            Register user{" "}
           </button>
+          <Link to="" className="ui red button" style={{marginLeft: 10}}>
+            {" "}
+            Cancel{" "}
+          </Link>
         </Form>
       </Formik>
     </div>
   );
 };
 
-export default LogInComponent;
+export default RegisterComponent;

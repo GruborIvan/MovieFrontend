@@ -5,7 +5,7 @@ import { addMovie } from '../store/actions/index'
 import * as yup from 'yup';
 
 const validationSheme = yup.object().shape({
-    title: yup.string().min(5, 'Too short title').max(15, 'Too long title').required('Required'),
+    title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
     descr: yup.string().min(5, 'Too short description').max(200, 'Too long description').required('Required'),
     img: yup.string().required('Movie image required'),
     genre: yup.string().required('Genre required')
@@ -22,7 +22,7 @@ const AddMovieComponent = () => {
     }
 
     return (
-        <div style={{ width: 500, marginLeft: 50, marginTop: 40 }}>
+        <div style={{ width: 500, marginLeft: 480, marginTop: 40 }}>
             <h4> Form for adding new movies: </h4>
 
             <Formik
@@ -34,7 +34,7 @@ const AddMovieComponent = () => {
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="title"> Title: </label>
                         <div style={{ float: 'left' }}>
-                            <Field type="text" name="title" placeholder="Movie title.." />
+                            <Field type="text" name="title" placeholder="Movie title.." style={{width: 280}} />
                         </div>
                         <div style={{ float: 'left', marginLeft: 15 }}>
                             <ErrorMessage name="title">
@@ -46,7 +46,7 @@ const AddMovieComponent = () => {
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="descr"> Description: </label>
                         <div style={{ float: 'left' }}>
-                            <Field type="text" name="descr" placeholder="Movie description" />
+                            <Field type="text" name="descr" placeholder="Movie description" style={{width: 280}} />
                         </div>
                         <div style={{ float: 'left', marginLeft: 15 }}>
                             <ErrorMessage name="descr">
@@ -58,7 +58,7 @@ const AddMovieComponent = () => {
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="img"> Image url: </label>
                         <div style={{ float: 'left' }}>
-                            <Field type="text" name="img" placeholder="Movie photo url.." />
+                            <Field type="text" name="img" placeholder="Movie photo url.." style={{width: 280}} />
                         </div>
                         <div style={{ float: 'left', marginLeft: 15 }}>
                             <ErrorMessage name="img">
@@ -70,7 +70,7 @@ const AddMovieComponent = () => {
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="genre"> Movie genre: </label>
                         <div style={{ float: 'left' }}>
-                            <Field type="text" list="lst" name="genre" placeholder="Movie genre.." />
+                            <Field type="text" list="lst" name="genre" placeholder="Movie genre.." style={{width: 280}} />
                             <datalist id="lst">
                                 <option> Drama </option>
                                 <option> Comedy </option>
@@ -88,6 +88,7 @@ const AddMovieComponent = () => {
                         </div>
                     </div>
 
+                    <br/>
                     <button type="submit" className="ui primary button"> Add Movie </button>
                     <button type="reset" className="ui red button"> Clear form </button>
 
