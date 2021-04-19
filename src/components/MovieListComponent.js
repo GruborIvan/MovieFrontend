@@ -28,7 +28,6 @@ const MovieListComponent = () => {
     fetchMovies(currentPage);
   }, [currentPage]); // eslint-disable-line
 
-
   console.log(allMovies)
 
   const allMoviesRendered = allMovies.map((movie) => {
@@ -41,11 +40,9 @@ const MovieListComponent = () => {
 
   return (
       <div style={{ margin: 40, marginLeft: 20, marginBottom: 100}}>
-
         <div style={{overflow: 'hidden'}}> 
           {allMoviesRendered} 
         </div>
-        
         <div>
           <Pagination totalMovies={movieCount} paginate={changePage} style={{marginTop: 400}} />
         </div>
