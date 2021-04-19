@@ -19,7 +19,7 @@ const Header = () => {
                 <Link to="/movies" className="ui inverted blue button"> All Movies </Link>
                 <Link to="/addmovie" className="ui inverted blue button"> Add Movie </Link>
 
-                { isLoggedIn === ''
+                { isLoggedIn === '' 
                     ? <Link to="" className="ui inverted green button" style={{marginLeft: 380}}> Log In </Link>
                     : <Link to="" onClick={onUserLogOut} className="ui inverted red button" style={{marginLeft: 380}}> Log Out </Link>
                 }

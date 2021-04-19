@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as yup from "yup";
@@ -11,8 +11,15 @@ const validationSheme = yup.object().shape({
 });
 
 const LogInComponent = () => {
+
   const dispatch = useDispatch();
   const { push } = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('token') !== '' && localStorage.getItem('token') != null) {
+      push('/movies')
+    } // eslint-disable-next-line
+  },[])
 
   const onFormSubmit = (values, { resetForm }) => {
     resetForm();
