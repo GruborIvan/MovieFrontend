@@ -4,12 +4,14 @@ import {
   SAVE_TOKEN,
   SAVE_MOVIE_COUNT,
   LOG_OUT,
+  SAVE_GENRES,
 } from "../../constants/action-types";
 
 const initialState = {
   token: "",
   movies: [],
   movieCount: 0,
+  movieGenres: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -38,6 +40,10 @@ function rootReducer(state = initialState, action) {
     }
     case LOG_OUT: {
       return { ...state, token: '' }
+    }
+    case SAVE_GENRES: {
+      console.log(action)
+      return {...state, movieGenres: action.json }
     }
     default: {
       return { ...state };

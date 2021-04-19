@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { useDispatch } from 'react-redux';
-import { addMovie } from '../store/actions/index'
+import { useDispatch, useSelector } from 'react-redux';
+import { addMovie, GetGenres } from '../store/actions/index'
 import * as yup from 'yup';
 
 const validationSheme = yup.object().shape({
@@ -14,10 +14,15 @@ const validationSheme = yup.object().shape({
 const AddMovieComponent = () => {
 
     const dispatch = useDispatch();
+    const genreChoices = useSelector(state => state.movieGenres);
+
+    useEffect(() => {
+        dispatch(GetGenres());  // eslint-disable-next-line
+    },[]) 
 
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: values.genre };
+        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [{"genre_name" : values.genre}] };
         dispatch(addMovie(newMovie));
     }
 
@@ -72,12 +77,9 @@ const AddMovieComponent = () => {
                         <div style={{ float: 'left' }}>
                             <Field type="text" list="lst" name="genre" placeholder="Movie genre.." style={{width: 280}} />
                             <datalist id="lst">
-                                <option> Drama </option>
-                                <option> Comedy </option>
-                                <option> Action </option>
-                                <option> Horror </option>
-                                <option> Thriller </option>
-                                <option> Documentary </option>
+                                {genreChoices.map(genre => {
+                                    return <option key={genre.genre_name}> {genre.genre_name} </option>
+                                })}
                             </datalist>
 
                         </div>

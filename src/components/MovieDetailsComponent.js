@@ -17,10 +17,8 @@ const MovieDetailsComponent = () => {
   useEffect(() => {
     if (allMovies.length === 0) {
       setIsLoading(true);
-      console.log("1");
     } else {
       setIsLoading(false);
-      console.log("2");
       SetMovie(selectedMovie);
     }
   }, [allMovies, selectedMovie]);
@@ -42,10 +40,11 @@ const MovieDetailsComponent = () => {
               {" "}
               <b> Description: </b> {movie.description}{" "}
             </p>
-            <p>
-              {" "}
-              <b> Genre: </b> {movie.genre}{" "}
-            </p>
+            
+              <p style={{float: "left"}}> Genre: </p> 
+              {movie.genre.map(genre => {
+                return <p key={genre.genre_name} style={{float: 'left', marginLeft: 10}}><b> {genre.genre_name} </b></p>
+              })}
           </div>
         )}
       </div>

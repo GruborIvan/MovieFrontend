@@ -28,6 +28,9 @@ const MovieListComponent = () => {
     fetchMovies(currentPage);
   }, [currentPage]); // eslint-disable-line
 
+
+  console.log(allMovies)
+
   const allMoviesRendered = allMovies.map((movie) => {
     return (
       <div style={{ float: "left" }} key={movie.id}>

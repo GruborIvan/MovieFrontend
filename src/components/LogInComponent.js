@@ -30,7 +30,7 @@ const LogInComponent = () => {
         Log in form:{" "}
       </h3>
       <Link to="/register" className="ui inverted green button" style={{ float: "left", marginLeft: 100 }}>
-        <i class="user icon"></i>
+        <i className="user icon"></i>
         Register user
       </Link>
       <br />
