@@ -3,22 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { getMovies } from "../store/actions/index";
 import MovieItemComponent from "./MovieItemComponent";
 import Pagination from "./Pagination";
+import SearchComponent from "./SearchComponent";
+import { moviesSelector } from '../store/selectors/MovieSelector';
 
 const MovieListComponent = () => {
-  // States for pagination..
+
   const dispatch = useDispatch();
-  const allMovies = useSelector((state) => state.movies);
-  const movieCount = useSelector((state) => state.movieCount);
+  const allMovies = useSelector(moviesSelector);
+  const movieCount = useSelector((state) => state.movies.movieCount);
 
   const [currentPage, setCurrentPage] = useState(1); // ON CLICK CHANGE CURRENT PAGE !!
 
-  const fetchMovies = useCallback((page = 1) => dispatch(getMovies(page)), [
-    dispatch,
-  ]);
-
-  const changePage = (pageNum) => {
-    setCurrentPage(pageNum);
-  };
+  const fetchMovies = useCallback((page = 1) => dispatch(getMovies(page)), [dispatch,]);
 
   useEffect(() => {
     fetchMovies();
@@ -27,8 +23,6 @@ const MovieListComponent = () => {
   useEffect(() => {
     fetchMovies(currentPage);
   }, [currentPage]); // eslint-disable-line
-
-  console.log(allMovies)
 
   const allMoviesRendered = allMovies.map((movie) => {
     return (
@@ -39,12 +33,15 @@ const MovieListComponent = () => {
   });
 
   return (
-      <div style={{ margin: 40, marginLeft: 20, marginBottom: 100}}>
+      <div style={{ margin: 15, marginLeft: 30, marginBottom: 100}}>
+        <div style={{marginLeft: 500, marginBottom: 15}}>
+          <SearchComponent/>
+        </div>
         <div style={{overflow: 'hidden'}}> 
           {allMoviesRendered} 
         </div>
         <div>
-          <Pagination totalMovies={movieCount} paginate={changePage} style={{marginTop: 400}} />
+          <Pagination totalMovies={movieCount} paginate={(pageNum) => setCurrentPage(pageNum)} style={{marginTop: 400}} />
         </div>
       </div>
   );

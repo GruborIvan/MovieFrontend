@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
+import { moviesSelector } from "../store/selectors/MovieSelector";
 
 const MovieDetailsComponent = () => {
   let { id } = useParams(); // Get id of current movie.
@@ -9,7 +10,7 @@ const MovieDetailsComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [movie, SetMovie] = useState([]);
 
-  const allMovies = useSelector((state) => state.movies);
+  const allMovies = useSelector(moviesSelector);
 
   // eslint-disable-next-line
   let selectedMovie = allMovies.find((obj) => obj.id == id);

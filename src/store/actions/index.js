@@ -9,10 +9,15 @@ import {
   GET_GENRES,
   SAVE_GENRES,
   REGISTER_USER,
+  FILTER_MOVIES,
 } from "../../constants/action-types";
 
 export const getMovies = (page) => {
   return { type: GET_MOVIES, payload: page };
+};
+
+export const filterMovies = (entry) => {
+  return { type: FILTER_MOVIES ,payload: entry };
 };
 
 export const saveMovieCount = (payload) => {

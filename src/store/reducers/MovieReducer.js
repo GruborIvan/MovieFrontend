@@ -11,7 +11,7 @@ const initialState = {
     movieGenres: [],
 }
 
-export default function MovieReducer(state = initialState, action) {
+export default function movies(state = initialState, action) {
     switch(action.type) {
         case RECIEVE_MOVIES: {
             return { 
