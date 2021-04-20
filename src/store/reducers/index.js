@@ -7,6 +7,10 @@ import {
   SAVE_GENRES,
 } from "../../constants/action-types";
 
+//import combineReducers from "react-combine-reducers";
+//import MovieReducer from "./MovieReducer";
+//import AuthReducer from "./AuthReducer";
+
 const initialState = {
   token: "",
   movies: [],
@@ -16,7 +20,6 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-
     case RECIEVE_MOVIES: {
       return { ...state, movies: action.data };
     }
@@ -33,23 +36,29 @@ function rootReducer(state = initialState, action) {
       };
     }
     case SAVE_MOVIE_COUNT: {
-        return {
-            ...state, 
-            movieCount: action.payload,
-        }
-    }
-    case LOG_OUT: {
-      return { ...state, token: '' }
+      return {
+        ...state,
+        movieCount: action.payload,
+      };
     }
     case SAVE_GENRES: {
-      console.log(action)
-      return {...state, movieGenres: action.json }
+      return {
+        ...state,
+        movieGenres: action.json,
+      };
+    }
+    case LOG_OUT: {
+      return { ...state, token: "" };
     }
     default: {
       return { ...state };
     }
   }
-
 }
+
+// const rootReducer =  combineReducers({
+//     MovieReducer,
+//     AuthReducer
+// });
 
 export default rootReducer;
