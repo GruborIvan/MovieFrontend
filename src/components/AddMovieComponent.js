@@ -23,8 +23,8 @@ const AddMovieComponent = () => {
 
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        const resp = genreChoices.filter(x => { return x.genre_name === values.genre });
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [resp[0].id] };
+        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [parseInt(values.genre)] };
+        console.log(newMovie);
         dispatch(addMovie(newMovie));
     }
 
@@ -76,15 +76,13 @@ const AddMovieComponent = () => {
 
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="genre"> Movie genre: </label>
+                        
                         <div style={{ float: 'left' }}>
-                            <Field type="text" list="lst" name="genre" placeholder="Movie genre.." style={{width: 280}} />
-                            <datalist id="lst">
-                                {genreChoices.map(genre => {
-                                    return <option key={genre.genre_name}> {genre.genre_name} </option>
-                                })}
-                            </datalist>
-
+                            <Field as="select" name="genre" placeholder="Movie genre.." style={{width: 280}} >
+                                {genreChoices.map(genre => (<option key={genre.genre_name} value={genre.id}> {genre.genre_name} </option>) )}
+                            </Field>
                         </div>
+
                         <div style={{ float: 'left', marginLeft: 15 }}>
                             <ErrorMessage name="genre">
                                 {msg => <div style={{ color: 'red' }}> {msg} </div>}

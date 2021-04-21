@@ -4,18 +4,18 @@ import { getMovies } from "../store/actions/index";
 import MovieItemComponent from "./MovieItemComponent";
 import Pagination from "./extras/Pagination"
 import SearchComponent from './extras/SearchComponent'
-import { moviesSelector } from '../store/selectors/MovieSelector';
+import { movieCountSelector, moviesSelector } from '../store/selectors/MovieSelector';
 import CategoryFilterComponent from "./extras/CategoryFilterComponent";
 
 const MovieListComponent = () => {
 
   const dispatch = useDispatch();
   const allMovies = useSelector(moviesSelector);
-  const movieCount = useSelector((state) => state.movies.movieCount);
+  const movieCount = useSelector(movieCountSelector);
 
   const [currentPage, setCurrentPage] = useState(1); // ON CLICK CHANGE CURRENT PAGE !!
 
-  const fetchMovies = useCallback((page = 1) => dispatch(getMovies(page)), [dispatch,]);
+  const fetchMovies = useCallback((page = 1) => dispatch(getMovies({page: page})), [dispatch]);
 
   useEffect(() => {
     fetchMovies();
