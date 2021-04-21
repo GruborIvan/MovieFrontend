@@ -2,11 +2,16 @@ import axiosClient from "./BaseApiService";
 
 const ENDPOINTS = {
   MOVIES: "/movies",
+  GENRES: "/genres",
 };
 
 const getMovies = async ({payload}) => {
-  return await axiosClient.get(ENDPOINTS.MOVIES, { params: { 'page' : payload }});
+  return await axiosClient.get(ENDPOINTS.MOVIES, { params: payload});
 };
+
+const getGenres = async () => {
+  return await axiosClient.get(ENDPOINTS.GENRES,{});
+}
 
 const postMovies = async (movieToAdd) => {
   console.log(JSON.stringify(movieToAdd));
@@ -18,6 +23,7 @@ const postMovies = async (movieToAdd) => {
 const movieService = {
   getMovies,
   postMovies,
+  getGenres,
 };
 
 export default movieService;

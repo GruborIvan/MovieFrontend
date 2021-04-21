@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { useDispatch } from 'react-redux';
-import { addMovie } from '../store/actions/index'
+import { useDispatch, useSelector } from 'react-redux';
+import { addMovie, GetGenres } from '../store/actions/index'
 import * as yup from 'yup';
+import { genreSelector } from '../store/selectors/MovieSelector';
 
 const validationSheme = yup.object().shape({
     title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
@@ -14,10 +15,16 @@ const validationSheme = yup.object().shape({
 const AddMovieComponent = () => {
 
     const dispatch = useDispatch();
+    const genreChoices = useSelector(genreSelector);
+
+    useEffect(() => {
+        dispatch(GetGenres());  // eslint-disable-next-line
+    },[]) 
 
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: values.genre };
+        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [parseInt(values.genre)] };
+        console.log(newMovie);
         dispatch(addMovie(newMovie));
     }
 
@@ -69,18 +76,13 @@ const AddMovieComponent = () => {
 
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="genre"> Movie genre: </label>
+                        
                         <div style={{ float: 'left' }}>
-                            <Field type="text" list="lst" name="genre" placeholder="Movie genre.." style={{width: 280}} />
-                            <datalist id="lst">
-                                <option> Drama </option>
-                                <option> Comedy </option>
-                                <option> Action </option>
-                                <option> Horror </option>
-                                <option> Thriller </option>
-                                <option> Documentary </option>
-                            </datalist>
-
+                            <Field as="select" name="genre" placeholder="Movie genre.." style={{width: 280}} >
+                                {genreChoices.map(genre => (<option key={genre.genre_name} value={genre.id}> {genre.genre_name} </option>) )}
+                            </Field>
                         </div>
+
                         <div style={{ float: 'left', marginLeft: 15 }}>
                             <ErrorMessage name="genre">
                                 {msg => <div style={{ color: 'red' }}> {msg} </div>}

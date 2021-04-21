@@ -6,14 +6,18 @@ import {
   SAVE_TOKEN,
   SAVE_MOVIE_COUNT,
   LOG_OUT,
+  GET_GENRES,
+  SAVE_GENRES,
+  REGISTER_USER,
 } from "../../constants/action-types";
 
-export const getMovies = (page) => {
-  return { type: GET_MOVIES, payload: page };
+export const getMovies = (payload) => {
+  console.log(payload);
+  return { type: GET_MOVIES, payload: payload };
 };
 
 export const saveMovieCount = (payload) => {
-    return { type: SAVE_MOVIE_COUNT, payload: payload}
+  return { type: SAVE_MOVIE_COUNT, payload: payload}
 };
 
 export const recieveMovies = (data) => {
@@ -34,4 +38,16 @@ export function LogOut() {
 
 export function SaveToken(token) {
   return { type: SAVE_TOKEN, payload: token }
+}
+
+export function GetGenres() {
+  return { type: GET_GENRES }
+}
+
+export function SaveGenres(genres) {
+  return { type: SAVE_GENRES, json: genres }
+}
+
+export function RegisterUser(payload) {
+  return { type: REGISTER_USER, json: payload }
 }
