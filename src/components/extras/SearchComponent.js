@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterMovies, getMovies } from '../store/actions';
+import { filterMovies, getMovies } from '../../store/actions/index';
 
 const SearchComponent = () => {
 
@@ -24,8 +24,8 @@ const SearchComponent = () => {
     },[entry]);
    
     return (
-        <div className="ui search">
-            <div className="ui icon input">
+        <div className="ui search" style={{float: 'left', marginLeft: 140}}>
+            <div className="ui icon input" style={{width: 260}}>
                 <input className="prompt" type="text" placeholder="Search movies..." value={entry} onChange={(e) => setEntry(e.target.value)}/>
                 <i className="search icon"></i>
             </div>

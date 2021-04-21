@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getMovies } from "../store/actions/index";
 import MovieItemComponent from "./MovieItemComponent";
-import Pagination from "./Pagination";
-import SearchComponent from "./SearchComponent";
+import Pagination from "./extras/Pagination"
+import SearchComponent from './extras/SearchComponent'
 import { moviesSelector } from '../store/selectors/MovieSelector';
+import CategoryFilterComponent from "./extras/CategoryFilterComponent";
 
 const MovieListComponent = () => {
 
@@ -34,7 +35,8 @@ const MovieListComponent = () => {
 
   return (
       <div style={{ margin: 15, marginLeft: 30, marginBottom: 100}}>
-        <div style={{marginLeft: 500, marginBottom: 15}}>
+        <div style={{marginBottom: 15, overflow: "hidden"}}>
+          <CategoryFilterComponent/>
           <SearchComponent/>
         </div>
         <div style={{overflow: 'hidden'}}> 

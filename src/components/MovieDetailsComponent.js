@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
-import Loader from "./Loader";
-import { moviesSelector } from "../store/selectors/MovieSelector";
+import Loader from './extras/Loader'
+import { genreSelector, moviesSelector } from "../store/selectors/MovieSelector";
 
 const MovieDetailsComponent = () => {
   let { id } = useParams(); // Get id of current movie.
@@ -11,6 +11,7 @@ const MovieDetailsComponent = () => {
   const [movie, SetMovie] = useState([]);
 
   const allMovies = useSelector(moviesSelector);
+  const allGenres = useSelector(genreSelector);
 
   // eslint-disable-next-line
   let selectedMovie = allMovies.find((obj) => obj.id == id);
@@ -23,6 +24,21 @@ const MovieDetailsComponent = () => {
       SetMovie(selectedMovie);
     }
   }, [allMovies, selectedMovie]);
+
+  //const genresRendered = movi
+
+  console.log(selectedMovie.genre);
+
+  const genresRendered = selectedMovie.genre.map(genreId => {
+    let thisgenre = allGenres.filter(gnr => {return gnr.id === genreId})
+    if (thisgenre[0]) {
+      return <b key={thisgenre[0].id} style={{float: "left", marginLeft: 6}}>   {thisgenre[0].genre_name}   </b>
+    }
+    else {
+      return <p></p>
+    }
+
+  });
 
   return (
     <div className="ui four column doubling stackable grid container">
@@ -43,9 +59,10 @@ const MovieDetailsComponent = () => {
             </p>
             
               <p style={{float: "left"}}> Genre: </p> 
-              {movie.genre.map(genre => {
-                return <p key={genre.genre_name} style={{float: 'left', marginLeft: 10}}><b> {genre.genre_name} </b></p>
-              })}
+              <div style={{overflow: "hidden"}}>
+              {genresRendered}
+              </div>
+              
           </div>
         )}
       </div>
