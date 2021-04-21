@@ -3,6 +3,7 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMovie, GetGenres } from '../store/actions/index'
 import * as yup from 'yup';
+import { genreSelector } from '../store/selectors/MovieSelector';
 
 const validationSheme = yup.object().shape({
     title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
@@ -14,7 +15,7 @@ const validationSheme = yup.object().shape({
 const AddMovieComponent = () => {
 
     const dispatch = useDispatch();
-    const genreChoices = useSelector(state => state.movieGenres);
+    const genreChoices = useSelector(genreSelector);
 
     useEffect(() => {
         dispatch(GetGenres());  // eslint-disable-next-line

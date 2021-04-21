@@ -9,6 +9,14 @@ const getMovies = async ({payload}) => {
   return await axiosClient.get(ENDPOINTS.MOVIES, { params: { 'page' : payload }});
 };
 
+const getFilteredMovies = async ({payload}) => {
+  return await axiosClient.get(ENDPOINTS.MOVIES,{ params: { 'title': payload }});
+}
+
+const getMoviesFilteredById = async ({payload}) => {
+  return await axiosClient.get(ENDPOINTS.MOVIES,{ params: { 'genre' : payload }});
+}
+
 const getGenres = async () => {
   return await axiosClient.get(ENDPOINTS.GENRES,{});
 }
@@ -23,7 +31,9 @@ const postMovies = async (movieToAdd) => {
 const movieService = {
   getMovies,
   postMovies,
-  getGenres
+  getGenres,
+  getFilteredMovies,
+  getMoviesFilteredById,
 };
 
 export default movieService;

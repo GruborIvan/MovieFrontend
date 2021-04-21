@@ -7,7 +7,7 @@ const initialState = {
     token: "",
 }
 
-export default function AuthReducer(state = initialState, action) {
+export default function auth(state = initialState, action) {
     switch(action.type) {
         case SAVE_TOKEN: {
             return {
