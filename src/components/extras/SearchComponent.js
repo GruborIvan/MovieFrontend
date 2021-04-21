@@ -8,19 +8,23 @@ const SearchComponent = () => {
     
     const dispatch = useDispatch();
 
+    const debounce = (func) => {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {func.apply(this,args)},750);
+        }
+    }
+
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
+        (debounce(() => {
             if (entry === '') {
-                dispatch(getMovies(1));
+                dispatch(getMovies());
             }
             else {
                 dispatch(filterMovies(entry));
             }
-        },750);
-
-        return () => {
-            clearTimeout(timeoutId);
-        } // eslint-disable-next-line
+        },750))(); // eslint-disable-next-line
     },[entry]);
    
     return (

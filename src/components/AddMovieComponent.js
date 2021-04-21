@@ -23,7 +23,8 @@ const AddMovieComponent = () => {
 
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [{"genre_name" : values.genre}] };
+        const resp = genreChoices.filter(x => { return x.genre_name === values.genre });
+        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [resp[0].id] };
         dispatch(addMovie(newMovie));
     }
 
