@@ -1,34 +1,52 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-import MovieItemComponent from './MovieItemComponent';
-import Pagination from './Pagination';
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getMovies } from "../store/actions/index";
+import MovieItemComponent from "./MovieItemComponent";
+import Pagination from "./extras/Pagination"
+import SearchComponent from './extras/SearchComponent'
+import { movieCountSelector, moviesSelector } from '../store/selectors/MovieSelector';
+import CategoryFilterComponent from "./extras/CategoryFilterComponent";
 
 const MovieListComponent = () => {
 
-    // States..
-    const [currentMovie,setCurrentMovie] = useState(1);
-    const [moviesPerPage,setMoviesPerPage] = useState(4);
+  const dispatch = useDispatch();
+  const allMovies = useSelector(moviesSelector);
+  const movieCount = useSelector(movieCountSelector);
 
-    const allMovies = useSelector(state => state.movies);
+  const [currentPage, setCurrentPage] = useState(1); // ON CLICK CHANGE CURRENT PAGE !!
 
-    // Get current posts..
-    const indexOfLastMovie = currentMovie * moviesPerPage;
-    const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-    const currentPost = allMovies.slice(indexOfFirstMovie,indexOfLastMovie);
+  const fetchMovies = useCallback((page = 1) => dispatch(getMovies({page: page})), [dispatch]);
 
-    const paginate = (movieNumber) => setCurrentMovie(movieNumber);
+  useEffect(() => {
+    fetchMovies();
+  }, []); // eslint-disable-line
 
-    const allMoviesRendered = currentPost.map((movie) => {
-        return <MovieItemComponent key={movie.id} movie={movie} />
-    })
+  useEffect(() => {
+    fetchMovies(currentPage);
+  }, [currentPage]); // eslint-disable-line
 
+  const allMoviesRendered = allMovies.map((movie) => {
     return (
-        <div style={{margin: 40, marginLeft: 480}}>
-            {allMoviesRendered}
-            <br/>
-            <Pagination moviesPerPage={moviesPerPage} totalMovies={allMovies.length} paginate={paginate} />
-        </div>
+      <div style={{ float: "left" }} key={movie.id}>
+        <MovieItemComponent movie={movie} />
+      </div>
     );
+  });
+
+  return (
+      <div style={{ margin: 15, marginLeft: 30, marginBottom: 100}}>
+        <div style={{marginBottom: 15, overflow: "hidden"}}>
+          <CategoryFilterComponent/>
+          <SearchComponent/>
+        </div>
+        <div style={{overflow: 'hidden'}}> 
+          {allMoviesRendered} 
+        </div>
+        <div>
+          <Pagination totalMovies={movieCount} paginate={(pageNum) => setCurrentPage(pageNum)} style={{marginTop: 400}} />
+        </div>
+      </div>
+  );
 };
 
 export default MovieListComponent;

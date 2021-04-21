@@ -1,36 +1,10 @@
-import { GET_MOVIES, RECIEVE_MOVIES,ADD_MOVIE, SAVE_TOKEN } from '../../constants/action-types'
+import { combineReducers } from "redux";
+import movies from "./MovieReducer";
+import auth from "./AuthReducer";
 
-const initialState = {
-    token: '',
-    movies: [],
-}
-
-function rootReducer(state = initialState, action) {
-
-    switch(action.type){
-        case GET_MOVIES: {
-            return { ...state, movies: action.json }
-        }
-        case RECIEVE_MOVIES: {
-            return { ...state, movies: action.json }
-        }
-        case ADD_MOVIE: {
-            return { 
-                ...state, movies: [...state.movies,action.payload] 
-            }
-        }
-        case SAVE_TOKEN: {
-            console.log('TOKEN IS: ');
-            console.log(action.json.access);
-            return {
-                ...state, token: action.json.access
-            }
-        }
-        default: {
-            return { ...state }
-        }
-    }
-
-}
+const rootReducer =  combineReducers({
+  movies,
+  auth
+});
 
 export default rootReducer;
