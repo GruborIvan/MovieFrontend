@@ -11,6 +11,7 @@ import {
   REGISTER_USER,
   LIKE_DISLIKE_MOVIE,
   DETAILS_VISIT,
+  POST_COMMENT,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -59,4 +60,8 @@ export function ReactToMovie(movieId,reaction) {
 
 export function DetailsVisit(movieId) {
   return { type: DETAILS_VISIT, movieId: movieId }
+}
+
+export function PostAComment(movieId,content) {
+  return { type: POST_COMMENT, payload: { movieId: movieId, content: content }}
 }

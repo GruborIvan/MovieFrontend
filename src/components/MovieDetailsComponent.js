@@ -7,6 +7,7 @@ import {
   moviesSelector,
 } from "../store/selectors/MovieSelector";
 import { DetailsVisit } from "../store/actions";
+import CommentsComponent from "./extras/CommentsComponents";
 
 const MovieDetailsComponent = () => {
   let { id } = useParams(); // Get id of current movie.
@@ -49,39 +50,42 @@ const MovieDetailsComponent = () => {
   });
 
   return (
-    <div className="ui four column doubling stackable grid container">
-      <div className="column" style={{ marginLeft: 400 }}>
+    <div className="ui four column doubling stackable grid container raised segment" style={{overflow: "hidden"}}>
+      <div className="column" style={{ marginLeft: 100, float: "left" }}>
         {isLoading === true ? (
-          <Loader />
-        ) : (
-          <div style={{ marginTop: 20 }}>
-            <img
-              src={movie.imageurl}
-              alt="Pic unavailable, sorry!"
-              className="ui medium rounded image"
-            />
-            <h2> {movie.title} </h2>
-            <p>
-              {" "}
-              <b> Description: </b> {movie.description}{" "}
-            </p>
-
-            <p style={{ float: "left" }}> Genre: </p>
-            <div style={{ overflow: "hidden" }}>{genresRendered}</div>
+          <Loader /> ) : 
+          (
+          <div style={{ marginTop: 20, overflow: "hidden"}}>
+            <div style={{float: "left"}}>
+              <img src={movie.imageurl} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
+            </div>
+            <div style={{float: "left"}}>
+              <h2> {movie.title} </h2>
+              <p> <b> Description: </b> {movie.description}{" "} </p>
+              
+            <div style={{ overflow: "hidden" }}>
+              <p style={{ float: "left"}}> Genre: </p>
+              {genresRendered}
+            </div>
+            </div>
           </div>
-        )}
+          )
+        }
 
-        <div className="ui small raised container segment">
-          <div style={{ backgroundColor: "green" }}>
+      </div>
+      <div style={{float: "left"}}>
+        <div className="ui small raised segment" style={{width:240, marginTop: 32,marginLeft: 40}}>
+          <div style={{ backgroundColor: "green",width:160 }}>
             <i className="hand point up icon"></i>
-            {movie.numberOfLikes}
+            {movie.likes}
           </div>
-          <div style={{ backgroundColor: "red" }}>
+          <div style={{ backgroundColor: "red",width:160 }}>
             <i className="hand point down icon"></i>
-            {movie.numberOfDislikes}
+            {movie.dislikes}
           </div>
-          <h5> Number of details page visits: {movie.numberOfPageVisits} </h5>
+          <h5> Number of details page visits: {movie.number_of_page_visits} </h5>
         </div>
+        <CommentsComponent movieId={selectedMovie.id}/>
       </div>
     </div>
   );

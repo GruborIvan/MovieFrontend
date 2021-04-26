@@ -28,7 +28,7 @@ const MovieItemComponent = ({ movie }) => {
         <div style={{overflow: "hidden"}}>
           <div style={{float: "left",marginLeft: 40,marginTop: 5}}>
             <i className="eye icon"></i>
-            <p> {movie.numberOfPageVisits} </p>
+            <p> {movie.number_of_page_visits} </p>
           </div>
           <div style={{float: "left"}}>
             <LikeDislikeComponent movie={movie} />
