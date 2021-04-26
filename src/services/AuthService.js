@@ -18,7 +18,6 @@ class AuthService {
     async Refresh() {
         const refreshToken = { refresh: localStorage.getItem('refresh') } 
         const result = await axiosClient.post(ENDPOINTS.REFRESH,refreshToken);
-        console.log(result.data.access);
         localStorage.setItem('token',result.data.access)
     }
 

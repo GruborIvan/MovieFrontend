@@ -9,10 +9,11 @@ import {
   GET_GENRES,
   SAVE_GENRES,
   REGISTER_USER,
+  LIKE_DISLIKE_MOVIE,
+  DETAILS_VISIT,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
-  console.log(payload);
   return { type: GET_MOVIES, payload: payload };
 };
 
@@ -50,4 +51,12 @@ export function SaveGenres(genres) {
 
 export function RegisterUser(payload) {
   return { type: REGISTER_USER, json: payload }
+}
+
+export function ReactToMovie(movieId,reaction) {
+  return { type: LIKE_DISLIKE_MOVIE, payload: {movieId: movieId,reaction: reaction}}
+}
+
+export function DetailsVisit(movieId) {
+  return { type: DETAILS_VISIT, movieId: movieId }
 }

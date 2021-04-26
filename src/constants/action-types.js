@@ -1,8 +1,6 @@
 export const GET_MOVIES = 'GET_MOVIES';
 export const RECIEVE_MOVIES = 'RECIEVE_MOVIES';
 export const SAVE_MOVIE_COUNT = 'SAVE_MOVIE_COUNT';
-export const FILTER_MOVIES = 'FILTER_MOVIES';
-export const FILTER_MOVIES_GENRE = 'FILTER_MOVIES_GENRE';
 
 export const GET_MOVIE_BYID = 'GET_MOVIE_BYID';
 export const RECIEVE_ONE_MOVIE = 'RECIEVE_ONE_MOVIE';
@@ -17,3 +15,8 @@ export const SAVE_GENRES = 'SAVE_GENRES';
 export const REGISTER_USER = 'REGISTER_USER';
 
 export const ADD_MOVIE = 'ADD_MOVIE';
+
+
+export const LIKE_DISLIKE_MOVIE = 'LIKE_DISLIKE_MOVIE';
+
+export const DETAILS_VISIT = 'DETAILS_VISIT';
