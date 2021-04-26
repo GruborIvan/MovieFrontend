@@ -6,23 +6,13 @@ const LikeDislikeComponent = ({movie}) => {
 
     const dispatch = useDispatch();
 
-    const likeAMovie = () => {
-        dispatch(ReactToMovie(movie.id,'like'))
-        movie.numberOfLikes = movie.numberOfLikes + 1
-    }
-
-    const dislikeAMovie = () => {
-        dispatch(ReactToMovie(movie.id,'dislike'))
-        movie.numberOfDislikes = movie.numberOfDislikes + 1
-    }
-
     return (<div style={{overflow: 'hidden',marginLeft: 50, marginTop: 10, marginBottom: 5}}>
-        <button className="ui small green button" onClick={likeAMovie}> 
+        <button className="ui small green button" onClick={() => dispatch(ReactToMovie(movie.id,'like'))}> 
             <i className="hand point up icon"></i>
             {movie.numberOfLikes}
         </button>
        
-        <button className="ui small red button" style={{marginLeft: 10}} onClick={dislikeAMovie}> 
+        <button className="ui small red button" style={{marginLeft: 10}} onClick={() => dispatch(ReactToMovie(movie.id,'dislike'))}> 
             <i className="hand point down icon"></i>
             {movie.numberOfDislikes}
         </button>

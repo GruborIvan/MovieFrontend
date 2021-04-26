@@ -35,14 +35,12 @@ const MovieDetailsComponent = () => {
   }, [allMovies, selectedMovie]);
 
   const genresRendered = selectedMovie.genre.map((genreId) => {
-    let thisgenre = allGenres.filter((gnr) => {
-      return gnr.id === genreId;
-    });
-    if (thisgenre[0]) {
+    let thisgenre = allGenres.find((genre) => { return genre.id === genreId });
+    if (thisgenre) {
       return (
-        <b key={thisgenre[0].id} style={{ float: "left", marginLeft: 6 }}>
+        <b key={thisgenre.id} style={{ float: "left", marginLeft: 6 }}>
           {" "}
-          {thisgenre[0].genre_name}{" "}
+          {thisgenre.genre_name}{" "}
         </b>
       );
     } else {
