@@ -12,7 +12,8 @@ const getMovies = async ({payload}) => {
 
 const getSingleMovie = async ({movieId}) => {
   const response = await axiosClient.get(ENDPOINTS.MOVIES + '/' + movieId)
-  console.log(response.data)
+  console.log(response)
+  return response
 }
 
 const getGenres = async () => {

@@ -56,17 +56,17 @@ const MovieDetailsComponent = () => {
           <Loader /> ) : 
           (
           <div style={{ marginTop: 20, overflow: "hidden"}}>
-            <div style={{float: "left"}}>
+            <div>
               <img src={movie.imageurl} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
             </div>
-            <div style={{float: "left"}}>
+            <div style={{marginLeft: 25,marginTop: 20}}>
               <h2> {movie.title} </h2>
               <p> <b> Description: </b> {movie.description}{" "} </p>
               
-            <div style={{ overflow: "hidden" }}>
-              <p style={{ float: "left"}}> Genre: </p>
-              {genresRendered}
-            </div>
+              <div style={{ overflow: "hidden" }}>
+                <p style={{ float: "left"}}> Genre: </p>
+                {genresRendered}
+              </div>
             </div>
           </div>
           )

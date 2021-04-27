@@ -12,6 +12,8 @@ import {
   LIKE_DISLIKE_MOVIE,
   DETAILS_VISIT,
   POST_COMMENT,
+  GET_COMMENTS,
+  SAVE_COMMENTS,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -55,7 +57,7 @@ export function RegisterUser(payload) {
 }
 
 export function ReactToMovie(movieId,reaction) {
-  return { type: LIKE_DISLIKE_MOVIE, payload: {movieId: movieId,reaction: reaction}}
+  return { type: LIKE_DISLIKE_MOVIE, payload: {movie: movieId,reaction: reaction}}
 }
 
 export function DetailsVisit(movieId) {
@@ -63,5 +65,13 @@ export function DetailsVisit(movieId) {
 }
 
 export function PostAComment(movieId,content) {
-  return { type: POST_COMMENT, payload: { movieId: movieId, content: content }}
+  return { type: POST_COMMENT, payload: { movie: movieId, content: content }}
+}
+
+export function GetComments(movieId) {
+  return {type: GET_COMMENTS, payload: movieId}
+}
+
+export function SaveComments(comments) {
+  return { type: SAVE_COMMENTS, payload: comments }
 }
