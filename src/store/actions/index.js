@@ -14,6 +14,8 @@ import {
   POST_COMMENT,
   GET_COMMENTS,
   SAVE_COMMENTS,
+  SAVE_COMMENT_COUNT,
+  CLEAR_COMMENTS,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -68,10 +70,18 @@ export function PostAComment(movieId,content) {
   return { type: POST_COMMENT, payload: { movie: movieId, content: content }}
 }
 
-export function GetComments(movieId) {
-  return {type: GET_COMMENTS, payload: movieId}
+export function GetComments(movieId,page) {
+  return {type: GET_COMMENTS, payload: { movie_id : movieId, page : page}}
 }
 
 export function SaveComments(comments) {
   return { type: SAVE_COMMENTS, payload: comments }
+}
+
+export function SaveCommentCount(count) {
+  return { type: SAVE_COMMENT_COUNT, payload: count }
+}
+
+export function ClearComments() {
+  return { type: CLEAR_COMMENTS }
 }

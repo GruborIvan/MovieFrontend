@@ -3,7 +3,7 @@ import { GET_COMMENTS, LIKE_DISLIKE_MOVIE, POST_COMMENT } from "../../constants/
 import feedbackService from "../../services/FeedbackService";
 import movieService from "../../services/MoviesService";
 import authService from '../../services/AuthService'
-import { SaveComments } from "../actions";
+import { ClearComments, SaveCommentCount, SaveComments } from "../actions";
 
 function* processLikes({payload}) {
     yield call(feedbackService.processLikeOrDislike,payload);
@@ -11,16 +11,18 @@ function* processLikes({payload}) {
 }
 
 function* addComment({payload}) {
-    console.log(payload)
     yield call(authService.Refresh)
-    yield call(feedbackService.addComment,payload)
-    const comments = yield call(feedbackService.getComments,payload.movie)
-    yield put(SaveComments(comments))
+    const resp = yield call(feedbackService.addComment,payload)
+    yield put(SaveComments(resp))
 }
 
-function* getComments({payload}) {
+function* getComments(payload) {
+    if (payload.payload.page === 1) {
+        yield put(ClearComments())
+    }
     const comments = yield call(feedbackService.getComments,payload)
-    yield put(SaveComments(comments))
+    yield put(SaveComments(comments.results))
+    yield put(SaveCommentCount(Math.ceil(comments.count / 2)))
 }
 
 export default function* feedbackSaga() {

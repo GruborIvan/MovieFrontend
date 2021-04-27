@@ -20,7 +20,6 @@ function* addNewMovie(newMovie) {
 function* fetchGenres() {
     yield call(AuthService.Refresh);
     const {data} = yield call(MoviesService.getGenres);
-    console.log(data);
     yield put(SaveGenres(data));
 }
 

@@ -22,8 +22,7 @@ class AuthService {
     }
 
     async RegisterNewUser(user) {
-        const result = await axiosClient.post(ENDPOINTS.REGISTER,user);
-        console.log(result)
+        return await axiosClient.post(ENDPOINTS.REGISTER,user);
     }
 
     async LogOut() {
@@ -33,7 +32,6 @@ class AuthService {
     GetToken() {
         return localStorage.getItem('token');
     }
-
 }
 
 const authService = new AuthService()

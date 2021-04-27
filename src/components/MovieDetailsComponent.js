@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./extras/Loader";
-import {
-  genreSelector,
-  moviesSelector,
-} from "../store/selectors/MovieSelector";
+import { genreSelector, moviesSelector } from "../store/selectors/MovieSelector";
 import { DetailsVisit } from "../store/actions";
 import CommentsComponent from "./extras/CommentsComponents";
 
@@ -17,9 +14,7 @@ const MovieDetailsComponent = () => {
   const [movie, SetMovie] = useState([]);
 
   const allMovies = useSelector(moviesSelector);
-  const allGenres = useSelector(genreSelector);
-
-  // eslint-disable-next-line
+  const allGenres = useSelector(genreSelector); // eslint-disable-next-line
   let selectedMovie = allMovies.find((obj) => obj.id == id);
 
   useEffect(() => {
