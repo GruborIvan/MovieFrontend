@@ -3,12 +3,17 @@ import {
     ADD_MOVIE,
     SAVE_MOVIE_COUNT,
     SAVE_GENRES,
+    SAVE_COMMENTS,
+    SAVE_COMMENT_COUNT,
+    CLEAR_COMMENTS
 } from "../../constants/action-types";
 
 const initialState = {
     movies: [],
     movieCount: 0,
     movieGenres: [],
+    comments: [],
+    commentPaginationCount: 0
 }
 
 export default function movies(state = initialState, action) {
@@ -31,6 +36,21 @@ export default function movies(state = initialState, action) {
         case SAVE_GENRES: {
             return {
                 ...state, movieGenres: action.json 
+            }
+        }
+        case SAVE_COMMENTS: {
+            return {
+                ...state, comments: state.comments.concat(action.payload)
+            }
+        }
+        case SAVE_COMMENT_COUNT: {
+            return {
+                ...state, commentPaginationCount: action.payload
+            }
+        }
+        case CLEAR_COMMENTS: {
+            return {
+                ...state, comments: [], commentPaginationCount: 0
             }
         }
         default: {
