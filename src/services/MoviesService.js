@@ -10,9 +10,8 @@ const getMovies = async ({payload}) => {
   return await axiosClient.get(ENDPOINTS.MOVIES, { params: payload});
 };
 
-const getSingleMovie = async ({movieId}) => {
-  const response = await axiosClient.get(ENDPOINTS.MOVIES + '/' + movieId)
-  return response
+const getSingleMovie = async ({data}) => {
+  return await axiosClient.get(`${ENDPOINTS.MOVIES}/${data}`)
 }
 
 const getGenres = async () => {
@@ -25,8 +24,8 @@ const postMovies = async (movieToAdd) => {
     .then((response) => console.log(response));
 };
 
-const updateMovieDetailsVisit = async (movieId) => {
-  await axiosClient.post(ENDPOINTS.VISITS,movieId);
+const updateMovieDetailsVisit = async (data) => {
+  await axiosClient.post(ENDPOINTS.VISITS,data);
 };
 
 const movieService = {
