@@ -16,6 +16,9 @@ import {
   SAVE_COMMENTS,
   SAVE_COMMENT_COUNT,
   CLEAR_COMMENTS,
+  GET_MY_MOVIELIST,
+  ADD_TO_MOVIELIST,
+  REMOVE_FROM_MOVIELIST,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -84,4 +87,16 @@ export function SaveCommentCount(count) {
 
 export function ClearComments() {
   return { type: CLEAR_COMMENTS }
+}
+
+export function GetMyMovieList() {
+  return { type: GET_MY_MOVIELIST }
+}
+
+export function AddToMovieList(movieId) {
+  return { type: ADD_TO_MOVIELIST, payload: {movie: movieId}}
+}
+
+export function RemoveFromMovieList(movieId) {
+  return { type: REMOVE_FROM_MOVIELIST, payload: movieId }
 }
