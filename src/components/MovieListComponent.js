@@ -35,6 +35,7 @@ const MovieListComponent = () => {
 
   return (
       <div style={{ margin: 15, marginLeft: 30, marginBottom: 100}}>
+
         <div style={{marginBottom: 15, overflow: "hidden"}}>
           <CategoryFilterComponent/>
           <SearchComponent/>

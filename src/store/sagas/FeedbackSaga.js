@@ -3,11 +3,12 @@ import { GET_COMMENTS, LIKE_DISLIKE_MOVIE, POST_COMMENT } from "../../constants/
 import feedbackService from "../../services/FeedbackService";
 import movieService from "../../services/MoviesService";
 import authService from '../../services/AuthService'
-import { ClearComments, SaveCommentCount, SaveComments } from "../actions";
+import { ClearComments, recieveMovies, SaveCommentCount, SaveComments } from "../actions";
 
 function* processLikes({payload}) {
     yield call(feedbackService.processLikeOrDislike,payload);
-    yield call(movieService.getMovies,{page: 1});
+    const response = yield call(movieService.getMovies,{page: 1});
+    yield put(recieveMovies(response.data.results));
 }
 
 function* addComment({payload}) {

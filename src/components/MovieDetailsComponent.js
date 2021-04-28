@@ -7,6 +7,7 @@ import { DetailsVisit } from "../store/actions";
 import CommentsComponent from "./extras/CommentsComponents";
 
 const MovieDetailsComponent = () => {
+
   let { id } = useParams(); // Get id of current movie.
   const dispatch = useDispatch();
 
@@ -51,10 +52,13 @@ const MovieDetailsComponent = () => {
           <Loader /> ) : 
           (
           <div style={{ marginTop: 20, overflow: "hidden"}}>
-            <div>
-              <img src={movie.imageurl} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
+            
+            <div style={{backgroundColor: 'lightblue'}}>
+            <h5> You have alredy watched this movie! </h5>
             </div>
-            <div style={{marginLeft: 25,marginTop: 20}}>
+            <img src={movie.imageurl} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
+        
+            <div style={{marginLeft: 25,marginTop: 20,backgroundColor: "azure"}}>
               <h2> {movie.title} </h2>
               <p> <b> Description: </b> {movie.description}{" "} </p>
               
@@ -69,7 +73,7 @@ const MovieDetailsComponent = () => {
 
       </div>
       <div style={{float: "left"}}>
-        <div className="ui small raised segment" style={{width:240, marginTop: 32,marginLeft: 40}}>
+        <div className="ui small raised segment" style={{width:240, marginTop: 32,marginLeft: 40, backgroundColor: "azure"}}>
           <div style={{ backgroundColor: "green",width:160 }}>
             <i className="hand point up icon"></i>
             {movie.likes}

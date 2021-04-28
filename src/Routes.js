@@ -6,6 +6,7 @@ import LogInComponent from "./components/LogInComponent";
 import MovieDetailsComponent from "./components/MovieDetailsComponent";
 import RegisterComponent from "./components/Auth/RegisterComponent";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import WatchListComponent from "./components/WatchListComponent";
 
 const Routes = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Routes = () => (
     <Route path="/movies" component={MovieListComponent} />
     <Route path="/addmovie" component={AddMovieComponent} />
     <Route path="/register" component={RegisterComponent} />
+    <Route path="/watchlist" component={WatchListComponent} />
     <Route exact path='/unauthorized' component={LogInComponent} />
   </Switch>
 );
