@@ -37,6 +37,10 @@ const addMovieToWatchList = async (payload) => {
   await axiosClient.post(ENDPOINTS.MOVIE_LIST,payload)
 }
 
+const removeMovieFromWatchlist = async (payload) => {
+  await axiosClient.delete(`${ENDPOINTS.MOVIE_LIST}/${payload}`)
+}
+
 const movieService = {
   getMovies,
   getMyMovies,
@@ -45,6 +49,7 @@ const movieService = {
   updateMovieDetailsVisit,
   getSingleMovie,
   addMovieToWatchList,
+  removeMovieFromWatchlist,
 };
 
 export default movieService;
