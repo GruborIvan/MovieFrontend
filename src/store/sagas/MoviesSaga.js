@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, GET_GENRES, GET_MOVIES } from "../../constants/action-types";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
 import { getMovies,recieveMovies,SaveGenres,saveMovieCount } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
@@ -18,13 +18,53 @@ function* addNewMovie(newMovie) {
 }
 
 function* fetchGenres() {
+    yield call(AuthService.Refresh);
     const {data} = yield call(MoviesService.getGenres);
-    console.log(data);
     yield put(SaveGenres(data));
+}
+
+function* updateDetailsVisit({movieId}) {
+    let params = {movId : movieId};
+    yield call(MoviesService.updateMovieDetailsVisit,params);
+}
+
+function* getMyMovies() {
+    yield call(AuthService.Refresh);
+    yield put(recieveMovies([]));
+    const response = yield call(MoviesService.getMyMovies)
+    yield put(recieveMovies(response.data));
+}
+
+function* addToMovieList({payload}) {
+    yield call(AuthService.Refresh);
+    yield call(MoviesService.addMovieToWatchList,payload)
+    yield call(fetchMovies,{page: 1})
+}
+
+function* removeFromMovieList({payload}) {
+    yield call(AuthService.Refresh);
+    yield call(MoviesService.removeMovieFromWatchlist,payload)
+    yield call(getMyMovies)
+}
+
+function* markMovieWatched({payload}) {
+    yield call(MoviesService.addMovieToWatchList,payload.payload)
+
+    if (payload.path === '/movies') {
+        yield call(fetchMovies,{page: 1})
+    }
+    else {
+        yield call(getMyMovies)
+    }
 }
 
 export default function* moviesSaga() {
     yield takeLatest(ADD_MOVIE,addNewMovie)
     yield takeLatest(GET_MOVIES,fetchMovies)
     yield takeLatest(GET_GENRES,fetchGenres)
+    yield takeLatest(DETAILS_VISIT,updateDetailsVisit)
+    yield takeLatest(GET_MY_MOVIELIST,getMyMovies)
+    yield takeLatest(ADD_TO_MOVIELIST,addToMovieList)
+    yield takeLatest(REMOVE_FROM_MOVIELIST,removeFromMovieList)
+    yield takeLatest(MARK_AS_WATCHED,markMovieWatched)
 }

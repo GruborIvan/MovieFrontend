@@ -1,19 +1,32 @@
+// MOVIE
 export const GET_MOVIES = 'GET_MOVIES';
 export const RECIEVE_MOVIES = 'RECIEVE_MOVIES';
 export const SAVE_MOVIE_COUNT = 'SAVE_MOVIE_COUNT';
-export const FILTER_MOVIES = 'FILTER_MOVIES';
-export const FILTER_MOVIES_GENRE = 'FILTER_MOVIES_GENRE';
-
+export const ADD_MOVIE = 'ADD_MOVIE';
 export const GET_MOVIE_BYID = 'GET_MOVIE_BYID';
 export const RECIEVE_ONE_MOVIE = 'RECIEVE_ONE_MOVIE';
+export const GET_MY_MOVIELIST = 'GET_MY_MOVIELIST';
 
-export const LOG_IN = 'LOG_IN';
-export const SAVE_TOKEN = 'SAVE_TOKEN';
-export const LOG_OUT = 'LOG_OUT';
-
+// GENRES
 export const GET_GENRES = 'GET_GENRES';
 export const SAVE_GENRES = 'SAVE_GENRES';
 
+// AUTHENTICATION
+export const LOG_IN = 'LOG_IN';
+export const SAVE_TOKEN = 'SAVE_TOKEN';
+export const LOG_OUT = 'LOG_OUT';
 export const REGISTER_USER = 'REGISTER_USER';
 
-export const ADD_MOVIE = 'ADD_MOVIE';
+// EXTRAS
+export const LIKE_DISLIKE_MOVIE = 'LIKE_DISLIKE_MOVIE';
+export const DETAILS_VISIT = 'DETAILS_VISIT';
+export const POST_COMMENT = 'POST_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const SAVE_COMMENTS = 'SAVE_COMMENTS';
+export const SAVE_COMMENT_COUNT = 'SAVE_COMMENT_COUNT';
+export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
+
+// MOVIE LIST
+export const ADD_TO_MOVIELIST = 'ADD_TO_MOVIELIST';
+export const REMOVE_FROM_MOVIELIST = 'REMOVE_FROM_MOVIELIST';
+export const MARK_AS_WATCHED = 'MARK_AS_WATCHED';
