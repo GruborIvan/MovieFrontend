@@ -18,12 +18,10 @@ const MovieListComponent = () => {
   const fetchMovies = useCallback((page = 1) => dispatch(getMovies({page: page})), [dispatch]);
 
   useEffect(() => {
-    localStorage.setItem('screen','movielist')
     fetchMovies();
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    localStorage.setItem('screen','movielist')
     fetchMovies(currentPage);
   }, [currentPage]); // eslint-disable-line
 
@@ -37,16 +35,14 @@ const MovieListComponent = () => {
 
   return (
       <div style={{ margin: 15, marginLeft: 30, marginBottom: 100}}>
+
         <div style={{marginBottom: 15, overflow: "hidden"}}>
           <CategoryFilterComponent/>
           <SearchComponent/>
         </div>
-        <br/><br/>
-
         <div style={{overflow: 'hidden'}}> 
           {allMoviesRendered} 
         </div>
-
         <div>
           <Pagination totalMovies={movieCount} paginate={(pageNum) => setCurrentPage(pageNum)} style={{marginTop: 400}} />
         </div>

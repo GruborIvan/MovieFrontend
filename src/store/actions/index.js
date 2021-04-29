@@ -19,7 +19,6 @@ import {
   GET_MY_MOVIELIST,
   ADD_TO_MOVIELIST,
   REMOVE_FROM_MOVIELIST,
-  MARK_AS_WATCHED,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -100,8 +99,4 @@ export function AddToMovieList(movieId) {
 
 export function RemoveFromMovieList(movieId) {
   return { type: REMOVE_FROM_MOVIELIST, payload: movieId }
-}
-
-export function markMovieAsWatched(movieId) {
-  return {type: MARK_AS_WATCHED, payload: {movie: movieId, watched: true}}
 }

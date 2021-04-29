@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
 import { getMovies,recieveMovies,SaveGenres,saveMovieCount } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
@@ -30,7 +30,6 @@ function* updateDetailsVisit({movieId}) {
 
 function* getMyMovies() {
     yield call(AuthService.Refresh);
-    yield put(recieveMovies([]));
     const response = yield call(MoviesService.getMyMovies)
     yield put(recieveMovies(response.data));
 }
@@ -38,29 +37,11 @@ function* getMyMovies() {
 function* addToMovieList({payload}) {
     yield call(AuthService.Refresh);
     yield call(MoviesService.addMovieToWatchList,payload)
-    const response = yield call(MoviesService.getMovies,{payload: {page: 1}})
-    yield put(recieveMovies(response.data.results))
-    yield put(saveMovieCount(response.data.count));
 }
 
 function* removeFromMovieList({payload}) {
     yield call(AuthService.Refresh);
-    yield call(MoviesService.removeMovieFromWatchlist,payload)
-    const response = yield call(MoviesService.getMyMovies)
-    yield put(recieveMovies(response.data));
-}
-
-function* markMovieWatched({payload}) {
-    yield call(MoviesService.addMovieToWatchList,payload)
-    if (localStorage.getItem('screen') === 'movielist') {
-        const response = yield call(MoviesService.getMovies,{payload: {page: 1}})
-        yield put(recieveMovies(response.data.results));
-        yield put(saveMovieCount(response.data.count));
-    }
-    else {
-        const response = yield call(MoviesService.getMyMovies)
-        yield put(recieveMovies(response.data));
-    }
+    yield call(MoviesService.addMovieToWatchList,payload.payload)
 }
 
 export default function* moviesSaga() {
@@ -71,5 +52,4 @@ export default function* moviesSaga() {
     yield takeLatest(GET_MY_MOVIELIST,getMyMovies)
     yield takeLatest(ADD_TO_MOVIELIST,addToMovieList)
     yield takeLatest(REMOVE_FROM_MOVIELIST,removeFromMovieList)
-    yield takeLatest(MARK_AS_WATCHED,markMovieWatched)
 }

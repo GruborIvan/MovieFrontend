@@ -10,14 +10,14 @@ const WatchListComponent = () => {
     const watchList = useSelector(moviesSelector)
 
     useEffect(() => {
-      localStorage.setItem('screen','watchlist')
-      dispatch(GetMyMovieList())  // eslint-disable-next-line
-    },[])
+        dispatch(GetMyMovieList())  // eslint-disable-next-line
+    })
 
     const allMoviesRendered = watchList.map((movie) => {
         return (
           <div style={{ float: "left" }} key={movie.id}>
-            <MovieItemComponent movie={movie.movie} entryNum={movie.id} />
+            <MovieItemComponent movie={movie.movie} />
+            {movie.watched ? <h4> This movie is watched! </h4> : <div></div>}
           </div>
         );
     });
