@@ -102,6 +102,6 @@ export function RemoveFromMovieList(movieId) {
   return { type: REMOVE_FROM_MOVIELIST, payload: movieId }
 }
 
-export function markMovieAsWatched(movieId) {
-  return {type: MARK_AS_WATCHED, payload: {movie: movieId, watched: true}}
+export function markMovieAsWatched(movieId,path) {
+  return {type: MARK_AS_WATCHED, payload: {payload: {movie: movieId, watched: true}, path: path } }
 }

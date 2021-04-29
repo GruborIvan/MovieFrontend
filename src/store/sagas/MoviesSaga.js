@@ -38,28 +38,23 @@ function* getMyMovies() {
 function* addToMovieList({payload}) {
     yield call(AuthService.Refresh);
     yield call(MoviesService.addMovieToWatchList,payload)
-    const response = yield call(MoviesService.getMovies,{payload: {page: 1}})
-    yield put(recieveMovies(response.data.results))
-    yield put(saveMovieCount(response.data.count));
+    yield call(fetchMovies,{page: 1})
 }
 
 function* removeFromMovieList({payload}) {
     yield call(AuthService.Refresh);
     yield call(MoviesService.removeMovieFromWatchlist,payload)
-    const response = yield call(MoviesService.getMyMovies)
-    yield put(recieveMovies(response.data));
+    yield call(getMyMovies)
 }
 
 function* markMovieWatched({payload}) {
-    yield call(MoviesService.addMovieToWatchList,payload)
-    if (localStorage.getItem('screen') === 'movielist') {
-        const response = yield call(MoviesService.getMovies,{payload: {page: 1}})
-        yield put(recieveMovies(response.data.results));
-        yield put(saveMovieCount(response.data.count));
+    yield call(MoviesService.addMovieToWatchList,payload.payload)
+
+    if (payload.path === '/movies') {
+        yield call(fetchMovies,{page: 1})
     }
     else {
-        const response = yield call(MoviesService.getMyMovies)
-        yield put(recieveMovies(response.data));
+        yield call(getMyMovies)
     }
 }
 

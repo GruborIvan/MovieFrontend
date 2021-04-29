@@ -1,10 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 import { AddToMovieList, markMovieAsWatched, RemoveFromMovieList } from '../../store/actions';
 
 const MovieActionsComponent = ({movie,entryNum}) => {
 
     const dispatch = useDispatch();
+
+    let {pathname} = useLocation()
 
     const btnDisable = localStorage.getItem('screen') === 'movielist' ? 'disabled' : ''; 
 
@@ -13,7 +16,7 @@ const MovieActionsComponent = ({movie,entryNum}) => {
             <div style={{float: "left"}}> 
               {movie.watched === true
               ? <p style={{marginTop: 12,marginLeft: 40,marginRight: 90}}> Watched! </p> 
-              : <div> <button className="ui mini green button" style={{marginTop: 7,marginLeft: 10,marginRight: 10}} onClick={() => dispatch(markMovieAsWatched(movie.id))}> Mark as watched </button> 
+              : <div> <button className="ui mini green button" style={{marginTop: 7,marginLeft: 10,marginRight: 10}} onClick={() => dispatch(markMovieAsWatched(movie.id,pathname))}> Mark as watched </button> 
             </div>}
             </div>
             <div style={{float: "left"}}> 
