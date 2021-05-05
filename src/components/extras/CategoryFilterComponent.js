@@ -22,8 +22,8 @@ const CategoryFilterComponent = () => {
     },[])
 
     return (
-        <div style={{float: 'left', backgroundColor: 'lightblue'}} className="ui compact menu">
-            <h5 style={{marginTop: 10, marginLeft: 10, marginRight: 10}}> Filter movies by genre:  </h5>
+        <div style={{float: 'left', backgroundColor: 'lightblue',marginTop: 5}} className="ui compact menu">
+            <h5 style={{marginTop: 15, marginLeft: 10, marginRight: 10}}> Filter movies by genre:  </h5>
             <select placeholder=" Filter..." style={{width: 170, marginRight: 20}} onChange={(e) => setValue(e.target.value)}>
                 {genresRendered}
             </select>

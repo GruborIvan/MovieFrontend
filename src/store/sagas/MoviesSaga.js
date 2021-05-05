@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
 import { getMovies,recieveMovies,SaveGenres,saveMovieCount } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
@@ -58,6 +58,10 @@ function* markMovieWatched({payload}) {
     }
 }
 
+function* getPopularMovies() {
+    yield call(MoviesService.getPopularMovies)
+}
+
 export default function* moviesSaga() {
     yield takeLatest(ADD_MOVIE,addNewMovie)
     yield takeLatest(GET_MOVIES,fetchMovies)
@@ -67,4 +71,5 @@ export default function* moviesSaga() {
     yield takeLatest(ADD_TO_MOVIELIST,addToMovieList)
     yield takeLatest(REMOVE_FROM_MOVIELIST,removeFromMovieList)
     yield takeLatest(MARK_AS_WATCHED,markMovieWatched)
+    yield takeLatest(GET_POPULAR,getPopularMovies)
 }

@@ -29,14 +29,14 @@ const AddMovieComponent = () => {
     }
 
     return (
-        <div style={{ width: 500, marginLeft: 480, marginTop: 40 }}>
-            <h4> Form for adding new movies: </h4>
+        <div className="ui raised padded centered container segment" style={{ width: 500, marginLeft: 480, marginTop: 40 }}>
+            <h4 style={{marginLeft: 110}}> Form for adding new movies: </h4>
 
             <Formik
                 initialValues={{ title: '', descr: '', img: '', genre: '' }}
                 onSubmit={onFormSubmit}
                 validationSchema={validationSheme}>
-                <Form className="ui form">
+                <Form className="ui form" style={{marginLeft: 100,marginTop: 30}}>
 
                     <div className="field" style={{ overflow: 'hidden' }}>
                         <label htmlFor="title"> Title: </label>

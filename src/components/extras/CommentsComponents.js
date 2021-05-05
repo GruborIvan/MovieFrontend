@@ -28,7 +28,7 @@ const CommentsComponent = ({movieId}) => {
 
     useEffect(() => {
         dispatch(GetComments(movieId,1)); // eslint-disable-next-line
-    },[]);
+    },[movieId]);
 
     return (
         <div style={{marginTop: 50,marginLeft: 40}}>
