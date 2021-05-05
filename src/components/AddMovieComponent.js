@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMovie, GetGenres } from '../store/actions/index'
 import * as yup from 'yup';
 import { genreSelector } from '../store/selectors/MovieSelector';
+import OmdbAddComponent from './movieExtras/OmdbAddComponent';
 
 const validationSheme = yup.object().shape({
     title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
@@ -28,9 +29,9 @@ const AddMovieComponent = () => {
         dispatch(addMovie(newMovie));
     }
 
-    return (
-        <div className="ui raised padded centered container segment" style={{ width: 500, marginLeft: 480, marginTop: 40 }}>
-            <h4 style={{marginLeft: 110}}> Form for adding new movies: </h4>
+    return (<div style={{overflow: 'hidden'}}>
+        <div className="ui raised padded centered container segment" style={{ width: 500, left: 50, marginTop: 40, float: 'left' }}>
+            <h3 style={{marginLeft: 170, color: 'blue'}}> Add new movie: </h3>
 
             <Formik
                 initialValues={{ title: '', descr: '', img: '', genre: '' }}
@@ -91,12 +92,16 @@ const AddMovieComponent = () => {
                     </div>
 
                     <br/>
-                    <button type="submit" className="ui primary button"> Add Movie </button>
+                    <button type="submit" className="ui inverted blue button"> Add Movie </button>
                     <button type="reset" className="ui red button"> Clear form </button>
 
                 </Form>
             </Formik>
         </div>
+        <div className="ui raised padded centered container segment" style={{ width: 500, left: 140, marginTop: 40,float: 'left'}}>
+            <OmdbAddComponent/>
+        </div>
+    </div>
     );
 
 };
