@@ -20,11 +20,16 @@ import {
   ADD_TO_MOVIELIST,
   REMOVE_FROM_MOVIELIST,
   MARK_AS_WATCHED,
+  GET_POPULAR,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
   return { type: GET_MOVIES, payload: payload };
 };
+
+export const getPopularMovies = () => {
+  return { type: GET_POPULAR }
+}
 
 export const saveMovieCount = (payload) => {
   return { type: SAVE_MOVIE_COUNT, payload: payload}
@@ -62,8 +67,8 @@ export function RegisterUser(payload) {
   return { type: REGISTER_USER, json: payload }
 }
 
-export function ReactToMovie(movieId,reaction) {
-  return { type: LIKE_DISLIKE_MOVIE, payload: {movie: movieId,reaction: reaction}}
+export function ReactToMovie(movieId,reaction,path) {
+  return { type: LIKE_DISLIKE_MOVIE, payload: { payload: {movie: movieId,reaction: reaction}, path: path}}
 }
 
 export function DetailsVisit(movieId) {

@@ -17,7 +17,7 @@ const SearchComponent = () => {
     },[entry]);
    
     return (
-        <div className="ui search" style={{float: 'left', marginLeft: 60}}>
+        <div className="ui search" style={{float: 'left', marginLeft: 60,marginTop: 10}}>
             <div className="ui icon input" style={{width: 260}}>
                 <input className="prompt" type="text" placeholder="Search movies..." value={entry} onChange={(e) => setEntry(e.target.value)}/>
                 <i className="search icon"></i>

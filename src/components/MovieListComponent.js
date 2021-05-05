@@ -6,7 +6,7 @@ import Pagination from "./extras/Pagination"
 import SearchComponent from './extras/SearchComponent'
 import { movieCountSelector, moviesSelector } from '../store/selectors/MovieSelector';
 import CategoryFilterComponent from "./extras/CategoryFilterComponent";
-import MovieSidebar from "./movieExtras/MovieSidebar";
+import MoviesSidebar from "./movieExtras/MoviesSidebar";
 
 const MovieListComponent = () => {
 
@@ -36,12 +36,9 @@ const MovieListComponent = () => {
     );
   });
 
-  return (<div style={{overflow: "hidden"}}>
-      <div style={{float: "left"}}>
-        <MovieSidebar/>
-      </div>
-      <div style={{ margin: 15, marginLeft: 30, marginBottom: 100, float: "left"}}>
-          <div style={{marginBottom: 15, overflow: "hidden"}}>
+  return (<div style={{overflow: "hidden", backgroundColor: 'black'}}>
+      <div style={{ margin: 15, marginBottom: 100, float: "left",width: 1400}}>
+          <div style={{marginBottom: 15, overflow: "hidden", backgroundColor: 'lightblue', height: 60}}>
             <CategoryFilterComponent/>
             <SearchComponent/>
           </div>
@@ -51,9 +48,15 @@ const MovieListComponent = () => {
           {allMoviesRendered} 
         </div>
 
-        <div>
-          <Pagination totalMovies={movieCount} paginate={(pageNum) => setCurrentPage(pageNum)} style={{marginTop: 400}} />
+        <div style={{marginTop: 40}}>
+          <Pagination totalMovies={movieCount} paginate={(pageNum) => setCurrentPage(pageNum)} />
         </div>
+        <div style={{marginTop: 80}}>
+          <h1 style={{color: "white"}}> Top rated movies: </h1>
+        </div>
+
+        <MoviesSidebar/>
+
       </div>
       </div>
   );

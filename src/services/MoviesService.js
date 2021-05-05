@@ -4,12 +4,17 @@ const ENDPOINTS = {
   MOVIES: "/movies",
   GENRES: "/genres",
   VISITS: "/visits",
-  MOVIE_LIST: "/movielist"
+  MOVIE_LIST: "/movielist",
+  POPULAR: "/popular"
 };
 
 const getMovies = async ({payload}) => {
   return await axiosClient.get(ENDPOINTS.MOVIES, { params: payload});
 };
+
+const getPopularMovies = async() => {
+  return await axiosClient.get(ENDPOINTS.POPULAR);
+}
 
 const getMyMovies = async () => {
   return await axiosClient.get(ENDPOINTS.MOVIE_LIST)
@@ -41,6 +46,10 @@ const removeMovieFromWatchlist = async (payload) => {
   await axiosClient.delete(`${ENDPOINTS.MOVIE_LIST}/${payload}`)
 }
 
+const setWatched = async ({payload}) => {
+  await axiosClient.put(`${ENDPOINTS.MOVIE_LIST}/${payload.movie}`,payload)
+}
+
 const movieService = {
   getMovies,
   getMyMovies,
@@ -50,6 +59,8 @@ const movieService = {
   getSingleMovie,
   addMovieToWatchList,
   removeMovieFromWatchlist,
+  setWatched,
+  getPopularMovies,
 };
 
 export default movieService;
