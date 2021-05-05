@@ -5,7 +5,8 @@ import {
     SAVE_GENRES,
     SAVE_COMMENTS,
     SAVE_COMMENT_COUNT,
-    CLEAR_COMMENTS
+    CLEAR_COMMENTS,
+    SAVE_SIDEBAR_CONTENT
 } from "../../constants/action-types";
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
     movieCount: 0,
     movieGenres: [],
     comments: [],
-    commentPaginationCount: 0
+    commentPaginationCount: 0,
+    moviesSidebarContent: [],
 }
 
 export default function movies(state = initialState, action) {
@@ -51,6 +53,12 @@ export default function movies(state = initialState, action) {
         case CLEAR_COMMENTS: {
             return {
                 ...state, comments: [], commentPaginationCount: 0
+            }
+        }
+        case SAVE_SIDEBAR_CONTENT: {
+            console.log(action)
+            return {
+                ...state, moviesSidebarContent: action.payload
             }
         }
         default: {

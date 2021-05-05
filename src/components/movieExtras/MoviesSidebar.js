@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getMovies } from '../../store/actions';
-import { moviesSelector } from '../../store/selectors/MovieSelector';
+import { getPopularMovies, getRelatedMovies } from '../../store/actions';
+import { sidebarContentSelector } from '../../store/selectors/MovieSelector';
 
 const MoviesSidebar = ({genre,currMovieId}) => {
 
     const dispatch = useDispatch()
-    const movies = useSelector(moviesSelector)
+    const movies = useSelector(sidebarContentSelector)
 
     useEffect(() => {
         if (genre !== undefined) {
-            dispatch(getMovies({genre: genre}));  
+          dispatch(getRelatedMovies(genre));  
         }  
         else {
-            //dispatch(getPopularMovies())
+          dispatch(getPopularMovies())
         }  // eslint-disable-next-line
     },[]);
 
     const moviesRendered = movies.slice(0,4).map(movie => {
-        if (movie.id === currMovieId) return <div></div>
+        if (movie.id === currMovieId) return <div></div> 
         return (<div key={movie.id} style={{float: 'left'}}>
             <Link to={"/movies/" + movie.id}>
             <div className="image">
