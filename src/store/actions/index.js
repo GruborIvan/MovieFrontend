@@ -21,6 +21,8 @@ import {
   REMOVE_FROM_MOVIELIST,
   MARK_AS_WATCHED,
   GET_POPULAR,
+  SAVE_SIDEBAR_CONTENT,
+  GET_RELATED_MOVIES,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -109,4 +111,12 @@ export function RemoveFromMovieList(movieId) {
 
 export function markMovieAsWatched(movieId,path) {
   return {type: MARK_AS_WATCHED, payload: {payload: {movie: movieId, watched: true}, path: path } }
+}
+
+export function saveSidebarContent(content) {
+  return { type: SAVE_SIDEBAR_CONTENT, payload: content }
+}
+
+export function getRelatedMovies(genre) {
+  return { type: GET_RELATED_MOVIES, payload: genre }
 }

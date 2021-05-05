@@ -5,7 +5,7 @@ const ENDPOINTS = {
   GENRES: "/genres",
   VISITS: "/visits",
   MOVIE_LIST: "/movielist",
-  POPULAR: "/popular"
+  POPULAR: "/movies/popular"
 };
 
 const getMovies = async ({payload}) => {
@@ -13,7 +13,8 @@ const getMovies = async ({payload}) => {
 };
 
 const getPopularMovies = async() => {
-  return await axiosClient.get(ENDPOINTS.POPULAR);
+  const response = await axiosClient.get(ENDPOINTS.POPULAR);
+  return response.data.slice(0,4)
 }
 
 const getMyMovies = async () => {
@@ -29,9 +30,7 @@ const getGenres = async () => {
 }
 
 const postMovies = async (movieToAdd) => {
-  await axiosClient
-    .post(ENDPOINTS.MOVIES, movieToAdd)
-    .then((response) => console.log(response));
+  await axiosClient.post(ENDPOINTS.MOVIES, movieToAdd);
 };
 
 const updateMovieDetailsVisit = async (data) => {

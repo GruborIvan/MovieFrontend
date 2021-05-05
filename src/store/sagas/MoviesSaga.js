@@ -1,6 +1,6 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
-import { getMovies,recieveMovies,SaveGenres,saveMovieCount } from "../actions/index";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, GET_RELATED_MOVIES, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
+import { getMovies,recieveMovies,SaveGenres,saveMovieCount, saveSidebarContent } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
 
@@ -59,7 +59,14 @@ function* markMovieWatched({payload}) {
 }
 
 function* getPopularMovies() {
-    yield call(MoviesService.getPopularMovies)
+    const response = yield call(MoviesService.getPopularMovies)
+    yield put(saveSidebarContent(response))
+}
+
+function* getMoviesRelated({payload}) {
+    yield call(AuthService.Refresh);
+    const response = yield call(MoviesService.getMovies, { payload: { genre: payload }});
+    yield put(saveSidebarContent(response.data.results))
 }
 
 export default function* moviesSaga() {
@@ -72,4 +79,5 @@ export default function* moviesSaga() {
     yield takeLatest(REMOVE_FROM_MOVIELIST,removeFromMovieList)
     yield takeLatest(MARK_AS_WATCHED,markMovieWatched)
     yield takeLatest(GET_POPULAR,getPopularMovies)
+    yield takeLatest(GET_RELATED_MOVIES, getMoviesRelated)
 }
