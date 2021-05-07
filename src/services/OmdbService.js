@@ -9,20 +9,22 @@ const fetchMoviesFromOmdb = async (params) => {
 };
 
 const filterGenres = (movieGenres, allGenres) => {
-    
+
     let thisMovieGenres = []
 
-    movieGenres.forEach(genreWithSpace => {
-        const genre = genreWithSpace.split(' ').join('')
-        
-        allGenres.forEach(gen => {
-            if (gen.genre_name === genre) {
-                thisMovieGenres.push(gen.id)
-            }
-        })
-    });
+                                                                        // eslint-disable-next-line
+    const thisMovGnrs = movieGenres.reduce((genres,currentGenre) => {
 
-    console.log(thisMovieGenres)
+        const genreTrimmed = currentGenre.split(' ').join('');
+        allGenres.forEach(genre => {
+            if (genre.genre_name === genreTrimmed) {
+                thisMovieGenres.push(genre.id)
+                return genre.id
+            }
+        });
+        return []
+    },[])
+
     return thisMovieGenres
 };
 

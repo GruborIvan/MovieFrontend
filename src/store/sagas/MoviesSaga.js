@@ -13,7 +13,6 @@ function* fetchMovies(params) {
 }
 
 function* addNewMovie(newMovie) {
-    console.log(newMovie)
     yield call(AuthService.Refresh);
     yield call(MoviesService.postMovies, newMovie.payload);
     yield put(getMovies());

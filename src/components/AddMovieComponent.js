@@ -25,11 +25,10 @@ const AddMovieComponent = () => {
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
         let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [parseInt(values.genre)] };
-        console.log(newMovie);
         dispatch(addMovie(newMovie));
     }
 
-    return (<div style={{overflow: 'hidden'}}>
+    return (<div style={{overflow: 'hidden', backgroundColor: 'black', height: 1000}}>
         <div className="ui raised padded centered container segment" style={{ width: 500, left: 50, marginTop: 40, float: 'left' }}>
             <h3 style={{marginLeft: 170, color: 'blue'}}> Add new movie: </h3>
 
