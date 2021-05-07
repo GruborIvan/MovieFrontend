@@ -56,7 +56,6 @@ export default function movies(state = initialState, action) {
             }
         }
         case SAVE_SIDEBAR_CONTENT: {
-            console.log(action)
             return {
                 ...state, moviesSidebarContent: action.payload
             }

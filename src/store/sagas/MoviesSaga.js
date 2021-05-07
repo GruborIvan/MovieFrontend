@@ -1,8 +1,9 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, GET_RELATED_MOVIES, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, FETCH_FROM_OMDB, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, GET_RELATED_MOVIES, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
 import { getMovies,recieveMovies,SaveGenres,saveMovieCount, saveSidebarContent } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
+import OmdbService from "../../services/OmdbService";
 
 function* fetchMovies(params) {
     yield call(AuthService.Refresh);
@@ -69,6 +70,17 @@ function* getMoviesRelated({payload}) {
     yield put(saveSidebarContent(response.data.results))
 }
 
+function* fetchMoviesFromOmdbAPI({payload}) {
+    yield call(AuthService.Refresh);
+    const response = yield call(OmdbService.fetchMoviesFromOmdb,payload);
+
+    const {data} = yield call(MoviesService.getGenres);
+    const genre = yield call(OmdbService.filterGenres,response.Genre.split(','),data);
+
+    const movie = { title: response.Title, description: response.Plot, imageurl: response.Poster, genre: genre }
+    yield call(addNewMovie,{payload : movie})
+}
+
 export default function* moviesSaga() {
     yield takeLatest(ADD_MOVIE,addNewMovie)
     yield takeLatest(GET_MOVIES,fetchMovies)
@@ -80,4 +92,5 @@ export default function* moviesSaga() {
     yield takeLatest(MARK_AS_WATCHED,markMovieWatched)
     yield takeLatest(GET_POPULAR,getPopularMovies)
     yield takeLatest(GET_RELATED_MOVIES, getMoviesRelated)
+    yield takeLatest(FETCH_FROM_OMDB, fetchMoviesFromOmdbAPI)
 }

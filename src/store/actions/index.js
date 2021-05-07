@@ -23,6 +23,7 @@ import {
   GET_POPULAR,
   SAVE_SIDEBAR_CONTENT,
   GET_RELATED_MOVIES,
+  FETCH_FROM_OMDB,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -119,4 +120,8 @@ export function saveSidebarContent(content) {
 
 export function getRelatedMovies(genre) {
   return { type: GET_RELATED_MOVIES, payload: genre }
+}
+
+export function fetchMovieFromOmdbAPI(params) {
+  return { type: FETCH_FROM_OMDB, payload: params }
 }
