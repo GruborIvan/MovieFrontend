@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, FETCH_FROM_OMDB, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, GET_RELATED_MOVIES, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
+import { ADD_MOVIE, ADD_TO_MOVIELIST, DETAILS_VISIT, ELASTIC_SEARCH, FETCH_FROM_OMDB, GET_GENRES, GET_MOVIES, GET_MY_MOVIELIST, GET_POPULAR, GET_RELATED_MOVIES, MARK_AS_WATCHED, REMOVE_FROM_MOVIELIST } from "../../constants/action-types";
 import { getMovies,recieveMovies,SaveGenres,saveMovieCount, saveSidebarContent } from "../actions/index";
 import MoviesService from "../../services/MoviesService";
 import AuthService from "../../services/AuthService";
@@ -81,6 +81,12 @@ function* fetchMoviesFromOmdbAPI({payload}) {
     yield call(addNewMovie,{payload : movie})
 }
 
+function* elasticSearch({payload}) {
+    const data = yield call(MoviesService.searchWithElastic,payload);
+    console.log(data)
+    yield put(recieveMovies(data));
+}
+
 export default function* moviesSaga() {
     yield takeLatest(ADD_MOVIE,addNewMovie)
     yield takeLatest(GET_MOVIES,fetchMovies)
@@ -93,4 +99,5 @@ export default function* moviesSaga() {
     yield takeLatest(GET_POPULAR,getPopularMovies)
     yield takeLatest(GET_RELATED_MOVIES, getMoviesRelated)
     yield takeLatest(FETCH_FROM_OMDB, fetchMoviesFromOmdbAPI)
+    yield takeLatest(ELASTIC_SEARCH, elasticSearch)
 }
