@@ -1,4 +1,7 @@
+import axios from "axios";
 import axiosClient from "./BaseApiService";
+
+const BASE_URL = 'http://localhost:8000';
 
 const ENDPOINTS = {
   MOVIES: "/movies",
@@ -36,7 +39,12 @@ const getGenres = async () => {
 }
 
 const postMovies = async (movieToAdd) => {
-  await axiosClient.post(ENDPOINTS.MOVIES, movieToAdd);
+  await axios({
+    method: 'POST',
+    url: BASE_URL + ENDPOINTS.MOVIES,
+    data: movieToAdd,
+    headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`, "Content-Type": "multipart/form-data" },
+  })
 };
 
 const updateMovieDetailsVisit = async (data) => {

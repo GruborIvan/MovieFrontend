@@ -9,7 +9,7 @@ import OmdbAddComponent from './movieExtras/OmdbAddComponent';
 const validationSheme = yup.object().shape({
     title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
     descr: yup.string().min(5, 'Too short description').max(200, 'Too long description').required('Required'),
-    img: yup.string().required('Movie image required'),
+    // img: yup.string().required('Movie image required'),
     genre: yup.string().required('Genre required')
 });
 
@@ -17,15 +17,26 @@ const AddMovieComponent = () => {
 
     const dispatch = useDispatch();
     const genreChoices = useSelector(genreSelector);
+    let selectedFile = undefined
 
     useEffect(() => {
         dispatch(GetGenres());  // eslint-disable-next-line
     },[]) 
 
+    const onFileUpload = (file) => {
+        selectedFile = file
+    }
+
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [parseInt(values.genre)] };
-        dispatch(addMovie(newMovie));
+        const formData = new FormData()
+        formData.append('title',values.title)
+        formData.append('description',values.descr)
+        formData.append('genre',[parseInt(values.genre)])
+        formData.append('imageurl','')
+        formData.append('image', selectedFile)
+        console.log(formData.get('image'))
+        dispatch(addMovie(formData));
     }
 
     return (<div style={{overflow: 'hidden', backgroundColor: 'black', height: 1000}}>
@@ -33,7 +44,7 @@ const AddMovieComponent = () => {
             <h3 style={{marginLeft: 170, color: 'blue'}}> Add new movie: </h3>
 
             <Formik
-                initialValues={{ title: '', descr: '', img: '', genre: '' }}
+                initialValues={{ title: '', descr: '', img: '', genre: '', image: undefined }}
                 onSubmit={onFormSubmit}
                 validationSchema={validationSheme}>
                 <Form className="ui form" style={{marginLeft: 100,marginTop: 30}}>
@@ -88,6 +99,19 @@ const AddMovieComponent = () => {
                                 {msg => <div style={{ color: 'red' }}> {msg} </div>}
                             </ErrorMessage>
                         </div>
+                    </div>
+
+                    <div className="field" style={{overflow: 'hidden'}}>
+                        <label htmlFor="image"> Movie image: </label>
+
+                        <div style={{float: 'left'}}>
+                            <input type="file" accept="image/*" onChange={(e) => onFileUpload(e.target.files[0])} />
+                        </div>
+
+                        <div>
+                            
+                        </div>
+                        
                     </div>
 
                     <br/>

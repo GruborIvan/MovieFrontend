@@ -36,7 +36,7 @@ const MoviesSidebar = ({genre,currMovieId}) => {
             </div>
             <div className="content" style={{ marginLeft: 15 }}>
               {movie.title}
-              <div className="description">{movie.description}</div>
+              <div className="description" style={{width: 270}}>{movie.description}</div>
             </div>
           </Link>
         </div>)
