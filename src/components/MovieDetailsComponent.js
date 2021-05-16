@@ -23,7 +23,6 @@ const MovieDetailsComponent = () => {
     // eslint-disable-next-line
     if (movie.movie && movie.movie.id == id) {
       movie.movie.watched = movie.watched
-      console.log(movie.movie.watched)
       selectedMovie = movie.movie;
     }
   });
@@ -61,8 +60,8 @@ const MovieDetailsComponent = () => {
   });
 
   return (
-    <div style={{backgroundColor: "black"}}>
-    <div className="ui four column doubling stackable grid container raised segment" style={{overflow: "hidden",marginLeft: 110,float: "left", width: 200}}>
+    <div style={{marginLeft: 52}} >
+    <div className="ui four column doubling stackable grid container raised segment" style={{overflow: "hidden",marginLeft: 150,float: "left", width: 100}}>
       <div className="column" style={{ marginLeft: 100, float: "left" }}>
         {isLoading === true ? (
           <Loader /> ) : 
@@ -72,11 +71,11 @@ const MovieDetailsComponent = () => {
             <div style={{backgroundColor: 'lightblue'}}>
             <h5> You have alredy watched this movie! </h5>
             </div>
-            <img src={movie.imageurl} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
+            <img src={movie.imageurl ? movie.imageurl : movie.image.movie_full_img} alt="Pic unavailable, sorry!" className="ui medium rounded image"/>
         
             <div style={{marginLeft: 25,marginTop: 20,backgroundColor: "azure"}}>
               <h1> {movie.title} </h1>
-              <p> <b> Description: </b> {movie.description}{" "} </p>
+              <p> <b> Description: </b> {movie.description} </p>
               
               <div style={{ overflow: "hidden" }}>
                 <p style={{ float: "left"}}> Genre: </p>
@@ -89,7 +88,7 @@ const MovieDetailsComponent = () => {
 
       </div>
       <div style={{float: "left"}}>
-        <div style={{width:240, marginTop: 32,marginLeft: 40, backgroundColor: "azure"}} className="ui small raised segment">
+        <div style={{width:240, marginTop: 40,marginLeft: 40, backgroundColor: "azure"}} className="ui small raised segment">
           <div style={{ backgroundColor: "green",width:160 }}>
             <i className="hand point up icon"></i>
             {movie.likes}

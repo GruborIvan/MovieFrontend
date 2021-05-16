@@ -24,6 +24,7 @@ import {
   SAVE_SIDEBAR_CONTENT,
   GET_RELATED_MOVIES,
   FETCH_FROM_OMDB,
+  ELASTIC_SEARCH,
 } from "../../constants/action-types";
 
 export const getMovies = (payload) => {
@@ -124,4 +125,8 @@ export function getRelatedMovies(genre) {
 
 export function fetchMovieFromOmdbAPI(params) {
   return { type: FETCH_FROM_OMDB, payload: params }
+}
+
+export function performElasticSearch(params) {
+  return { type: ELASTIC_SEARCH, payload: params }
 }

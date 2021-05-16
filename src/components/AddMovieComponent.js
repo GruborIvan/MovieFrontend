@@ -8,15 +8,15 @@ import OmdbAddComponent from './movieExtras/OmdbAddComponent';
 
 const validationSheme = yup.object().shape({
     title: yup.string().min(5, 'Too short title').max(50, 'Too long title').required('Required'),
-    descr: yup.string().min(5, 'Too short description').max(200, 'Too long description').required('Required'),
-    img: yup.string().required('Movie image required'),
-    genre: yup.string().required('Genre required')
+    description: yup.string().min(5, 'Too short description').max(200, 'Too long description').required('Required'),
+    genre: yup.string().required('Genre required').notOneOf(['------'],'Select genre'),
 });
 
 const AddMovieComponent = () => {
 
     const dispatch = useDispatch();
     const genreChoices = useSelector(genreSelector);
+    let selectedPic = null
 
     useEffect(() => {
         dispatch(GetGenres());  // eslint-disable-next-line
@@ -24,8 +24,12 @@ const AddMovieComponent = () => {
 
     const onFormSubmit = (values, { resetForm }) => {
         resetForm();
-        let newMovie = { title: values.title, description: values.descr, imageurl: values.img, genre: [parseInt(values.genre)] };
-        dispatch(addMovie(newMovie));
+        const formData = new FormData()
+        Object.keys(values).forEach(key => {
+            formData.append(key,values[key])
+        })
+        formData.append('image',selectedPic)
+        dispatch(addMovie(formData));
     }
 
     return (<div style={{overflow: 'hidden', backgroundColor: 'black', height: 1000}}>
@@ -33,9 +37,10 @@ const AddMovieComponent = () => {
             <h3 style={{marginLeft: 170, color: 'blue'}}> Add new movie: </h3>
 
             <Formik
-                initialValues={{ title: '', descr: '', img: '', genre: '' }}
+                initialValues={{ title: '', description: '', genre: '' }}
                 onSubmit={onFormSubmit}
                 validationSchema={validationSheme}>
+
                 <Form className="ui form" style={{marginLeft: 100,marginTop: 30}}>
 
                     <div className="field" style={{ overflow: 'hidden' }}>
@@ -51,24 +56,12 @@ const AddMovieComponent = () => {
                     </div>
 
                     <div className="field" style={{ overflow: 'hidden' }}>
-                        <label htmlFor="descr"> Description: </label>
+                        <label htmlFor="description"> Description: </label>
                         <div style={{ float: 'left' }}>
-                            <Field type="text" name="descr" placeholder="Movie description" style={{width: 280}} />
+                            <Field type="text" name="description" placeholder="Movie description" style={{width: 280}} />
                         </div>
                         <div style={{ float: 'left', marginLeft: 15 }}>
-                            <ErrorMessage name="descr">
-                                {msg => <div style={{ color: 'red' }}> {msg} </div>}
-                            </ErrorMessage>
-                        </div>
-                    </div>
-
-                    <div className="field" style={{ overflow: 'hidden' }}>
-                        <label htmlFor="img"> Image url: </label>
-                        <div style={{ float: 'left' }}>
-                            <Field type="text" name="img" placeholder="Movie photo url.." style={{width: 280}} />
-                        </div>
-                        <div style={{ float: 'left', marginLeft: 15 }}>
-                            <ErrorMessage name="img">
+                            <ErrorMessage name="description">
                                 {msg => <div style={{ color: 'red' }}> {msg} </div>}
                             </ErrorMessage>
                         </div>
@@ -79,6 +72,7 @@ const AddMovieComponent = () => {
                         
                         <div style={{ float: 'left' }}>
                             <Field as="select" name="genre" placeholder="Movie genre.." style={{width: 280}} >
+                                <option key={'-1'}> ------ </option>
                                 {genreChoices.map(genre => (<option key={genre.genre_name} value={genre.id}> {genre.genre_name} </option>) )}
                             </Field>
                         </div>
@@ -87,6 +81,13 @@ const AddMovieComponent = () => {
                             <ErrorMessage name="genre">
                                 {msg => <div style={{ color: 'red' }}> {msg} </div>}
                             </ErrorMessage>
+                        </div>
+                    </div>
+
+                    <div className="field" style={{overflow: 'hidden', width: 220}}>
+                        <label htmlFor="image"> Movie image: </label>
+                        <div style={{float: 'left'}}>
+                            <input name="image" className="ui button" type="file" accept="image/*" onChange={(e) => selectedPic = e.target.files[0]} />
                         </div>
                     </div>
 

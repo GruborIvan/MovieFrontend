@@ -4,7 +4,7 @@ const Pagination = ({ totalMovies, paginate }) => {
 
     const movieNums = useMemo(() => {
         let movieNumbers = [];
-        for (let i = 1; i <= Math.ceil(totalMovies / 10); i++) { movieNumbers.push(i) }
+        for (let i = 1; i <= Math.ceil(totalMovies / 8); i++) { movieNumbers.push(i) }
         return movieNumbers;
     },[totalMovies])
 

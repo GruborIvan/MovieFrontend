@@ -4,18 +4,16 @@ import LikeDislikeComponent from "./extras/LikeDislikeComponent";
 import MovieActionsComponent from "./movieExtras/MovieActionsComponent";
 
 const MovieItemComponent = ({ movie,entryNum }) => {
+
   return (
     !movie ? null : (
       <div style={{ width: 300, height: 440, marginBottom: 20 }}>
-        <div
-          className="ui raised container segment card"
-          style={{ backgroundColor: "lightcyan", border: "1px solid" }}
-        >
+        <div className="ui raised container segment card" style={{ backgroundColor: "lightcyan", border: "1px solid" }}>
           <MovieActionsComponent movie={movie} entryNum={entryNum} />
           <Link to={"/movies/" + movie.id}>
             <div className="image">
               <img
-                src={movie.imageurl}
+                src={movie.imageurl ? movie.imageurl : movie.image.movie_thumbnail}
                 alt="Img failed to load."
                 style={{
                   width: 280,
@@ -27,7 +25,9 @@ const MovieItemComponent = ({ movie,entryNum }) => {
             </div>
             <div className="content" style={{ marginLeft: 15 }}>
               {movie.title}
-              <div className="description">{movie.description}</div>
+              <div className="description" style={{height: 40}}>
+                {movie.description ? movie.description.substring(0,70) + '...' : movie.description} 
+              </div>
             </div>
           </Link>
 
